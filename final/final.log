@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023) (preloaded format=xelatex 2023.5.17)  23 MAY 2023 01:33
+This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023) (preloaded format=xelatex 2023.5.17)  23 MAY 2023 01:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -895,27 +895,24 @@ LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
 [1
 
 ] [2]
-
-LaTeX Warning: Reference `tab:ozet' on page 3 undefined on input line 154.
-
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 8.4pt on input line 167.
+(Font)              scaled to size 8.4pt on input line 162.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 6.0pt on input line 167.
+(Font)              scaled to size 6.0pt on input line 162.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 12.0011pt on input line 167.
+(Font)              scaled to size 12.0011pt on input line 162.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 8.40076pt on input line 167.
+(Font)              scaled to size 8.40076pt on input line 162.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 6.00055pt on input line 167.
+(Font)              scaled to size 6.00055pt on input line 162.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 11.99872pt on input line 167.
+(Font)              scaled to size 11.99872pt on input line 162.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 8.3991pt on input line 167.
+(Font)              scaled to size 8.3991pt on input line 162.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 5.99936pt on input line 167.
+(Font)              scaled to size 5.99936pt on input line 162.
 
-LaTeX Warning: Reference `fig:plot' on page 3 undefined on input line 173.
+LaTeX Warning: Reference `fig:plot' on page 3 undefined on input line 183.
 
 [3] [4]
 The property list \polyglossia@langsetup contains the pairs (without outer
@@ -974,10 +971,6 @@ The property list \__xpg_alias contains the pairs (without outer braces):
 >  {latex/target}  =>  {latex}
 >  {turkish/target}  =>  {turkish}
 >  {tr/target}  =>  {turkish}.
-
-Package caption Warning: Unused \captionsetup[table] on input line 93.
-See the caption package documentation for explanation.
-
 [5] (./final.aux
 LaTeX Info: Redefining \rmfamily on input line 17.
 LaTeX Info: Redefining \sffamily on input line 17.
@@ -990,12 +983,12 @@ Package rerunfilecheck Info: File `final.out' has not changed.
 (rerunfilecheck)             Checksum: DFBB2DC9ECDD9623DFF4052C52FE5AE6;1292.
  ) 
 Here is how much of TeX's memory you used:
- 20433 strings out of 478696
- 390783 string characters out of 5846699
+ 20435 strings out of 478696
+ 390822 string characters out of 5846699
  1856624 words of memory out of 5000000
- 40249 multiletter control sequences out of 15000+600000
- 519707 words of font info for 92 fonts, out of 8000000 for 9000
+ 40253 multiletter control sequences out of 15000+600000
+ 519699 words of font info for 91 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 86i,11n,121p,1237b,328s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 86i,11n,121p,1237b,474s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
 Output written on final.pdf (5 pages).

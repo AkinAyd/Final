@@ -59,7 +59,7 @@ Richard Easterlin'in çalışmalarında ulaşılan sonuçlara en büyük itiraz,
 
 
 # Veri 
-Bu bölümde çalışmanızda kullandığınız veri setinin kaynağını, ham veri üzerinde herhangi bir işlem yaptıysanız bu işlemleri ve veri seti ile ilgili özet istatistikleri tartışınız. Bu bölümde tüm değişkenlere ait özet istatistikleri (ortalama, standart sapma, minimum, maksimum, vb. değerleri) içeren bir tablo (Tablo \ref{tab:ozet}) olması zorunludur. Tablolarınıza gerekli göndermeleri bir önceki cümlede gösterildiği gibi yapınız. [@perkins:1991]
+Bu bölümde çalışmanızda kullandığınız veri setinin kaynağını, ham veri üzerinde herhangi bir işlem yaptıysanız bu işlemleri ve veri seti ile ilgili özet istatistikleri tartışınız. Bu bölümde tüm değişkenlere ait özet istatistikleri (ortalama, standart sapma, minimum, maksimum, vb. değerleri) içeren bir tablo (Tablo \ref{tab:ozet}) olması zorunludur. Tablolarınıza gerekli göndermeleri bir önceki cümlede gösterildiği gibi yapınız.
 
 Analize ait R kodları bu bölümde başlamalıdır. Bu bölümde veri setini R'a aktaran ve özet istatistikleri üreten kodlar yer almalıdır.
 
@@ -77,7 +77,7 @@ World_Bank_Data <- World_Bank_Data %>%
   select(-`Series Code`, -`Country Code`) %>%
   slice(-c(301:305)) %>%
   pivot_wider(names_from = "Series Name", values_from = "2018 [YR2018]")
-  names(World_Bank_Data) <- (c("Ülke", "Milli_Gelir", "Gini_Endeksi", "Insan_Sermayesi_Endeksi", "Nüfus", "GSYH", "Işsizlik_Oranı"))
+  names(World_Bank_Data) <- (c("Ülke", "Kişi_Başı_Milli_Gelir", "Gini_Endeksi", "Insan_Sermayesi_Endeksi", "Nüfus", "GSYH", "Işsizlik_Oranı"))
 World_Bank_Data <- World_Bank_Data %>%
   mutate(Ülke = as.character(case_when(
     Ülke == "Turkiye" ~ "Turkey",
@@ -91,6 +91,11 @@ Hukuk_Endeksi <- Hukuk_Endeksi %>%
   filter(Year == "2017-2018") %>%
   select(-`Year`, -`Region`, -`Country Code`)
 names(Hukuk_Endeksi) <- (c("Ülke", "Hukuk_Skoru"))
+Hukuk_Endeksi <- Hukuk_Endeksi %>%
+  mutate(Ülke = as.character(case_when(
+    Ülke == "Egypt, Arab Rep." ~ "Egypt",
+    Ülke == "Russian Federation" ~ "Russia",
+    TRUE ~ Ülke)))
 
 Özgürlük_Endeksi <- Özgürlük_Endeksi %>%
   filter(Edition == "2018") %>%
@@ -106,14 +111,11 @@ Baskın_Dini_İnanç <- Baskın_Dini_İnanç %>%
 names(Baskın_Dini_İnanç) <- (c("Ülke", "Baskın_Dini_Inanç"))
 
 dat <- left_join(World_Bank_Data, Mutluluk_Endeksi, by = "Ülke") %>%
-  relocate(Mutluluk_Skoru, .before = Milli_Gelir)
+  relocate(Mutluluk_Skoru, .before = Kişi_Başı_Milli_Gelir)
 dat <- left_join(dat, Hukuk_Endeksi, by="Ülke")
 dat <- left_join(dat, Özgürlük_Endeksi, by="Ülke")
 dat <- left_join(dat, Baskın_Dini_İnanç, by="Ülke")
 ```
-
-
-Rmd dosyasında kod bloklarının bazılarında kod seçeneklerinin düzenlendiğine dikkat edin. 
 
 ```{r, echo=FALSE}
 library(xtable) 
@@ -121,15 +123,20 @@ library(summarytools)
 st_options(lang = "tr")
 ```
 
-`echo=FALSE` seçeneği ile kodların türetilen pdf dosyasında görünmesini engelleyin ve sonuçlarınızı tablo halinde rapor edin.
 
 ```{r results='asis', echo=FALSE}
-
+dat %>%
+  select("Mutluluk_Skoru", "Kişi_Başı_Milli_Gelir", "Gini_Endeksi", "Insan_Sermayesi_Endeksi", "Nüfus", "GSYH", "Işsizlik_Oranı", "Hukuk_Skoru") %>% 
+  descr(stats = c("mean", "sd", "min", "med", "max"), transpose = TRUE) %>% 
+  xtable(caption = "Özet İstatistikler",
+         label = "tab:ozet",
+         align = c("l", "c", "c", "c", "c", "c")) %>% 
+  print(booktabs = TRUE, comment = FALSE, caption.placement = "top")
 ```
 
 
 # Yöntem ve Veri Analizi
-Bu bölümde veri setindeki bilgileri kullanarak çalışmanın amacına ulaşmak için kullanılacak yöntemleri açıklayın. Derste işlenen/işlenecek olan analiz yöntemlerinden (Hipotez testleri ve korelasyon analizi gibi) çalışmanın amacına ve veri setine uygun olanlar bu bölümde kullanılmalıdır. [@newbold:2003; @ozsoy:2010; @ozsoy:2014]
+Bu bölümde veri setindeki bilgileri kullanarak çalışmanın amacına ulaşmak için kullanılacak yöntemleri açıklayın. Derste işlenen/işlenecek olan analiz yöntemlerinden (Hipotez testleri ve korelasyon analizi gibi) çalışmanın amacına ve veri setine uygun olanlar bu bölümde kullanılmalıdır.
 
 Örneğin, regresyon analizi gerçekleştiriyorsanız tahmin ettiğiniz denklemi bu bölümde tartışınız. Denklemlerinizi ve matematiksel ifadeleri $LaTeX$ kullanarak yazınız.
 
