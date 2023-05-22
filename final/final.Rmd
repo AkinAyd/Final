@@ -115,7 +115,16 @@ dat <- left_join(World_Bank_Data, Mutluluk_Endeksi, by = "Ülke") %>%
 dat <- left_join(dat, Hukuk_Endeksi, by="Ülke")
 dat <- left_join(dat, Özgürlük_Endeksi, by="Ülke")
 dat <- left_join(dat, Baskın_Dini_İnanç, by="Ülke")
+
+dat <- dat %>% 
+  mutate(across(c(Kişi_Başı_Milli_Gelir, Gini_Endeksi, Insan_Sermayesi_Endeksi, Nüfus, GSYH, Işsizlik_Oranı),
+                as.numeric))
+
+
+
 ```
+
+
 
 ```{r, echo=FALSE}
 library(xtable) 
@@ -126,7 +135,7 @@ st_options(lang = "tr")
 
 ```{r results='asis', echo=FALSE}
 dat %>%
-  select("Mutluluk_Skoru", "Kişi_Başı_Milli_Gelir", "Gini_Endeksi", "Insan_Sermayesi_Endeksi", "Nüfus", "GSYH", "Işsizlik_Oranı", "Hukuk_Skoru") %>% 
+  select("Mutluluk_Skoru", "Kişi_Başı_Milli_Gelir", "Gini_Endeksi", "Insan_Sermayesi_Endeksi", "Nüfus", "Işsizlik_Oranı", "Hukuk_Skoru") %>% 
   descr(stats = c("mean", "sd", "min", "med", "max"), transpose = TRUE) %>% 
   xtable(caption = "Özet İstatistikler",
          label = "tab:ozet",
