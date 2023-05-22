@@ -1,0 +1,158 @@
+---
+title: "Mutluluk Ve Gelir İlişkisi Üzerine Bir İnceleme"
+author: 
+  - Akın Aydın[^1]
+bibliography: ../bibliography/biblio.bib
+csl: ../csl/apa-tr.csl
+header-includes:
+  - \usepackage{polyglossia}
+  - \setmainlanguage{turkish}
+  - \usepackage{booktabs}
+  - \usepackage{caption} 
+  - \captionsetup[table]{skip=10pt}
+output:
+  bookdown::pdf_document2:
+    fig_caption: yes
+    fig_height: 3
+    fig_width: 4
+    keep_tex: no
+    latex_engine: xelatex
+    number_sections: yes
+    toc: no
+geometry: margin=1in
+link-citations: yes
+urlcolor: blue
+fontsize: 12pt
+biblio-style: apalike
+abstract: |
+  Bu bölümde çalışmanızın özetini yazınız.
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(cache = FALSE, echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+<!-- ======================================================================= -->
+<!-- ============================== NOTLAR ================================= -->
+<!-- ======================================================================= -->
+[^1]: 21080197, [Github Repo](https://github.com/AkinAyd/final)
+
+# Giriş
+Mutluluk, insanların doğumdan ölüme kadar ençoklamaya (maksimize etmeye) çalıştığı temel unsurlardan biridir. Bu bağlamda mutluluk, birçok sosyal bilimcinin üzerinde çalıştığı konulardan biri olmuştur. Literatüre farklı kavramlar ve analiz çeşitleri de zaman içinde eklenmiştir.
+
+Çalışma seçilmiş ülkelerin 2018 yılından elde edilmiş ulusal verileri ile yürütülmektedir. Çalışmada gelir dağılımı (Gini endeksi), yıllık kişi başı milli gelir, özgürlük mertebesi, hukuka bağlılık, ülkede baskın olan dini inanç, mutluluk, toplam nüfus, insan sermayesi endeksi, gayrisafi yurtiçi hasıla ve işsizlik oranı değişkenleri kullanılmıştır. Mutluluk bağımlı değişken olmakla beraber kalan değişkenler bağımsız değişken olarak değerlendirilmiştir. Ülkede baskın olan dini inanç ve özgürlük mertebesi kategorik değişkenler iken kalan değişkenler sayısal değişkenlerdir. Sayısal değişkenler arasında regresyon analizi ve kategorik değişkenler arasında varyans analizi yapılması öngörülmektedir. Gözlem olarak düşük gelirli, düşük-orta gelirli, yüksek-orta gelirli ve yüksek gelirli ülkeler arasından 50 adet ülke seçilmiştir.
+
+## Çalışmada Kullanılan Veri
+Çalışmada kullanılan veri çeşitli kaynaklardan toplanmıştır. Mutluluk endeksini elde etmek için [World Happiness Report](https://worldhappiness.report), dini verileri elde etmek için [ARDA](https://www.thearda.com), özgürlük hakkında veriler elde etmek için [Freedom House](https://freedomhouse.org), hukuka bağlılık hakkında veriler elde etmek için [World Justice Project](https://worldjusticeproject.org) ve kalan verileri elde etmek için de (toplam nüfus, gini endeksi, insan sermayesi endeksi, yıllık kişi başı milli gelir, gayrisafi yurtiçi hasıla ve işsizlik oranı) [World Bank](https://data.worldbank.org) kullanılmıştır.
+
+## Çalışmanın Amacı
+Çalışma, genel anlamda insanları anlamak ve toplumdaki mutluluğu maksimize etmek isteyen bir hükümetin yapması gerekenlere ışık tutması açısından önem arz etmektedir. Büyüme yanlısı politikaların insanları gerçekten memnun edip etmediği konuları tartışılmaktadır.
+
+Bu çalışma ile ulaşılması istenen hedef, mutluluğun gelir ile pozitif bir ilişki içerisinde olup olmadığı ve -varsa- mutluluğu açıklayan alternatif değişkenlerin neler olabileceği gibi sorulara anlamlı cevaplar verebilmektir.
+
+## Literatür 
+Gelir ile mutluluk arasındaki ilişkinin test edilmeye başlanması ilk olarak @easterlin1974does çalışması ile görülmüştür. Bu çalışmada Easterlin, yatay kesit verilerin zaman serisi verilerine göre daha kuvvetli bir ilişki içerisinde olduğunu öne sürmüştür. Yani göreli gelirin (içinde bulunulan topluma kıyasla elde edilen gelir) mutlak gelire göre mutluluk ile daha yüksek bir korelasyona sahip olduğundan bahsetmiştir. @easterlin1995will çalışmasında "Hepimizin geliri aynı anda artsa hepimizin mutluluğu aynı anda mı artacak?" sorusunu sormuş ve göreli gelirin önemini bir kez daha vurgulamıştır. Bu çalışmalardan elde edilen sonuçla, kısa dönemde mutluluğun mutlak gelir ile pozitif bir ilişki içerisinde olup, uzun dönemde gelirin artmasına rağmen mutluluğun artmaması literatürde "Easterlin Paradoksu" adını almıştır. Örnek vermek gerekirse, @frank2012easterlin çalışmasında 2. Dünya savaşı sonrası hızla büyüyen Japonya için yapılan zaman serisi analizi verilebilir. Çalışma, büyümenin uzun yıllar boyunca hızla artmasına rağmen mutlulukta bir artış olmadığını göstermektedir.
+
+Richard Easterlin'in çalışmalarında ulaşılan sonuçlara en büyük itiraz, Betsey Stevenson ve Justin Wolfers tarafından gelmiştir. @stevenson2008economic Easterlin'in yatay kesit analizlerinin yüksek hacimli ve kaliteli veri içerdiği, fakat ülkelerin kıyaslandığı zaman serisi analizlerinde kullanılan gözlem hacminin yeteri kadar büyük olmadığından ve "Easterlin Paradoksu" kavramının istatistiki bir hatadan ibaret olduğundan bahsetmişlerdir. @stevenson2008economic çalışmasında yatay kesit analizlerinde gözlemlenen pozitif ilişkinin yanında zaman serisi analizlerinde de pozitif bir ilişki gözlemlediklerini, ülkelerin zaman içerisinde artan gelir ile mutluluğunun aynı yönde değiştiğini, dolayısıyla önemli olan unsurun bireyin mutlak geliri olduğundan bahsetmişlerdir. Bu bağlamda, farklı analiz çeşitlerinin nasıl ve ne şekilde ortaya çıktığını gözlemlemek mümkündür.
+
+### Mutlak Gelir ve Mutluluk İlişkisinin Bir Eşiği Var Mı?
+@layard2003happiness çalışmasında "Bir ülke yıllık 15000$ kişi başı gelir üzerine çıktığı zaman gelir ile mutluluk birbirinden bağımsızdır" söyleminde bulunmuş ve mutlak gelirin belirli bir gelir eşiğine kadar mutluluğun bir unsuru olduğunu vurgulamıştır. Yaptığı çalışmalar sonucu insanların birbirleri ile rekabet halinde olduğu ve bu nedenle göreli gelirin daha önemli olduğu kanısına varmıştır. @layard2006happiness çalışmasında her bireyin elde ettiği gelir diğer bireyin üzerinde negatif dışsallık yaratacağı için yüksek gelir ve tüketim vergilerini bir çözüm olarak öne sürmüştür. Buna karşın, @deaton2008income çalışmasında en zengin ülkelerde bile daha fazla gelirin daha fazla mutluluğa yol açtığını, sadece marjinal faydasının azaldığını gözlemlemiştir. Dolayısıyla, Deaton ve Layard'ın vardığı sonuçlar tamamen çelişmektedir.
+
+
+# Veri 
+Bu bölümde çalışmanızda kullandığınız veri setinin kaynağını, ham veri üzerinde herhangi bir işlem yaptıysanız bu işlemleri ve veri seti ile ilgili özet istatistikleri tartışınız. Bu bölümde tüm değişkenlere ait özet istatistikleri (ortalama, standart sapma, minimum, maksimum, vb. değerleri) içeren bir tablo (Tablo \ref{tab:ozet}) olması zorunludur. Tablolarınıza gerekli göndermeleri bir önceki cümlede gösterildiği gibi yapınız. [@perkins:1991]
+
+Analize ait R kodları bu bölümde başlamalıdır. Bu bölümde veri setini R'a aktaran ve özet istatistikleri üreten kodlar yer almalıdır.
+
+```{r, echo=FALSE}
+library(tidyverse)
+library(here)
+library(readxl)
+Mutluluk_Endeksi <- read_excel(here("../data/Happiness Index.xls"), sheet = 2, range = "A1:B157")
+Hukuk_Endeksi <- read_excel(here("../data/Rule Of Law Index.xlsx"), sheet = 11, range = "A1:E1058")
+Özgürlük_Endeksi <- read_excel(here("../data/Freedom Index.xlsx"), sheet = 2, range = "A2:E1259")
+World_Bank_Data <- read_excel(here("../data/World_Bank_Data.xlsx"), sheet = 1)
+Baskın_Dini_İnanç <- read_excel(here("../data/Religion Index.xlsx"), sheet = 1, range = "B1:L271")
+
+World_Bank_Data <- World_Bank_Data %>%
+  select(-`Series Code`, -`Country Code`) %>%
+  slice(-c(301:305)) %>%
+  pivot_wider(names_from = "Series Name", values_from = "2018 [YR2018]")
+  names(World_Bank_Data) <- (c("Ülke", "Milli_Gelir", "Gini_Endeksi", "Insan_Sermayesi_Endeksi", "Nüfus", "GSYH", "Işsizlik_Oranı"))
+World_Bank_Data <- World_Bank_Data %>%
+  mutate(Ülke = as.character(case_when(
+    Ülke == "Turkiye" ~ "Turkey",
+    Ülke == "Egypt, Arab Rep." ~ "Egypt",
+    Ülke == "Russian Federation" ~ "Russia",
+    TRUE ~ Ülke)))
+
+names(Mutluluk_Endeksi) <- (c("Ülke", "Mutluluk_Skoru"))
+
+Hukuk_Endeksi <- Hukuk_Endeksi %>%
+  filter(Year == "2017-2018") %>%
+  select(-`Year`, -`Region`, -`Country Code`)
+names(Hukuk_Endeksi) <- (c("Ülke", "Hukuk_Skoru"))
+
+Özgürlük_Endeksi <- Özgürlük_Endeksi %>%
+  filter(Edition == "2018") %>%
+  select(-"Region", -"C/T", -"Edition") %>%
+    mutate(Status = as.factor(case_when(
+    Status == "F" ~ "Özgür",
+    Status == "NF" ~ "Özgür Değil",
+    Status == "PF" ~ "Kısmen Özgür")))
+names(Özgürlük_Endeksi) <- (c("Ülke", "Rejim"))
+
+Baskın_Dini_İnanç <- Baskın_Dini_İnanç %>%
+  select("ICOUNTRY", "MAJRELNAME")
+names(Baskın_Dini_İnanç) <- (c("Ülke", "Baskın_Dini_Inanç"))
+
+dat <- left_join(World_Bank_Data, Mutluluk_Endeksi, by = "Ülke") %>%
+  relocate(Mutluluk_Skoru, .before = Milli_Gelir)
+dat <- left_join(dat, Hukuk_Endeksi, by="Ülke")
+dat <- left_join(dat, Özgürlük_Endeksi, by="Ülke")
+dat <- left_join(dat, Baskın_Dini_İnanç, by="Ülke")
+```
+
+
+Rmd dosyasında kod bloklarının bazılarında kod seçeneklerinin düzenlendiğine dikkat edin. 
+
+```{r, echo=FALSE}
+library(xtable) 
+library(summarytools)
+st_options(lang = "tr")
+```
+
+`echo=FALSE` seçeneği ile kodların türetilen pdf dosyasında görünmesini engelleyin ve sonuçlarınızı tablo halinde rapor edin.
+
+```{r results='asis', echo=FALSE}
+
+```
+
+
+# Yöntem ve Veri Analizi
+Bu bölümde veri setindeki bilgileri kullanarak çalışmanın amacına ulaşmak için kullanılacak yöntemleri açıklayın. Derste işlenen/işlenecek olan analiz yöntemlerinden (Hipotez testleri ve korelasyon analizi gibi) çalışmanın amacına ve veri setine uygun olanlar bu bölümde kullanılmalıdır. [@newbold:2003; @ozsoy:2010; @ozsoy:2014]
+
+Örneğin, regresyon analizi gerçekleştiriyorsanız tahmin ettiğiniz denklemi bu bölümde tartışınız. Denklemlerinizi ve matematiksel ifadeleri $LaTeX$ kullanarak yazınız.
+
+$$
+Y_t = \beta_0 + \beta_N N_t + \beta_P P_t + \beta_I I_t + \varepsilon_t
+$$
+
+Bu bölümde analize ilişkin farklı tablolar ve grafiklere yer verilmelidir. Çalışmanıza uygun biçimde histogram, nokta grafiği (Şekil \@ref(fig:plot) gibi), kutu grafiği, vb. grafikleri bu bölüme ekleyiniz. Şekillerinize de gerekli göndermeleri bir önceki cümlede gösterildiği gibi yapınız.
+
+
+```{r plot, fig.align='center', fig.cap='Muhteşem Bir Grafik'}
+
+```
+
+
+# Sonuç
+Bu bölümde çalışmanızın sonuçlarını özetleyiniz. Sonuçlarınızın başlangıçta belirlediğiniz araştırma sorusuna ne derece cevap verdiğini ve ileride bu çalışmanın nasıl geliştirilebileceğini tartışınız.
+
+**Kaynakça bölümü Rmarkdown tarafından otomatik olarak oluşturulmaktadır. Taslak dosyada Kaynakça kısmında herhangi bir değişikliğe gerek yoktur.** 
+
+**_Taslakta bu cümleden sonra yer alan hiçbir şey silinmemelidir._**
+
+\newpage
+# Kaynakça {#references}
+<div id="refs"></div>
+
