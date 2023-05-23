@@ -120,10 +120,10 @@ dat <- dat %>%
   mutate(across(c(Kişi_Başı_Milli_Gelir, Gini_Endeksi, Insan_Sermayesi_Endeksi, Nüfus, GSYH, Işsizlik_Oranı),
                 as.numeric))
 
-
+dat <- dat %>%
+  mutate(GSYH = GSYH/1000000000) #milyar cinsinden belirtebilmek için
 
 ```
-
 
 
 ```{r, echo=FALSE}
@@ -135,7 +135,7 @@ st_options(lang = "tr")
 
 ```{r results='asis', echo=FALSE}
 dat %>%
-  select("Mutluluk_Skoru", "Kişi_Başı_Milli_Gelir", "Gini_Endeksi", "Insan_Sermayesi_Endeksi", "Nüfus", "Işsizlik_Oranı", "Hukuk_Skoru") %>% 
+  select("Mutluluk_Skoru", "Kişi_Başı_Milli_Gelir", "Gini_Endeksi", "Insan_Sermayesi_Endeksi", "Nüfus", "GSYH", "Işsizlik_Oranı", "Hukuk_Skoru") %>% 
   descr(stats = c("mean", "sd", "min", "med", "max"), transpose = TRUE) %>% 
   xtable(caption = "Özet İstatistikler",
          label = "tab:ozet",

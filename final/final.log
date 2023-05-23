@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023) (preloaded format=xelatex 2023.5.17)  23 MAY 2023 02:51
+This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023) (preloaded format=xelatex 2023.5.17)  23 MAY 2023 15:42
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -912,12 +912,12 @@ LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
 (Font)              scaled to size 5.99936pt on input line 162.
 
-Overfull \hbox (60.77707pt too wide) in paragraph at lines 162--175
+Overfull \hbox (60.77707pt too wide) in paragraph at lines 162--176
  [][] 
  []
 
 
-LaTeX Warning: Reference `fig:plot' on page 3 undefined on input line 188.
+LaTeX Warning: Reference `fig:plot' on page 3 undefined on input line 189.
 
 [3] [4]
 The property list \polyglossia@langsetup contains the pairs (without outer
@@ -990,7 +990,7 @@ Package rerunfilecheck Info: File `final.out' has not changed.
 Here is how much of TeX's memory you used:
  20435 strings out of 478696
  390822 string characters out of 5846699
- 1856624 words of memory out of 5000000
+ 1857624 words of memory out of 5000000
  40253 multiletter control sequences out of 15000+600000
  519699 words of font info for 91 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
