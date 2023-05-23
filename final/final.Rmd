@@ -59,9 +59,7 @@ Richard Easterlin'in çalışmalarında ulaşılan sonuçlara en büyük itiraz,
 
 
 # Veri 
-Bu bölümde çalışmanızda kullandığınız veri setinin kaynağını, ham veri üzerinde herhangi bir işlem yaptıysanız bu işlemleri ve veri seti ile ilgili özet istatistikleri tartışınız. Bu bölümde tüm değişkenlere ait özet istatistikleri (ortalama, standart sapma, minimum, maksimum, vb. değerleri) içeren bir tablo (Tablo \ref{tab:ozet}) olması zorunludur. Tablolarınıza gerekli göndermeleri bir önceki cümlede gösterildiği gibi yapınız.
-
-Analize ait R kodları bu bölümde başlamalıdır. Bu bölümde veri setini R'a aktaran ve özet istatistikleri üreten kodlar yer almalıdır.
+Veri, bir önceki bölümde belirtildiği gibi çeşitli kaynaklardan toplanmıştır. Veri, seçilmiş ülkelerin mutluluk skorlarını, kişi başı milli gelirlerini (dolar bazlı), gelir dağılımı endekslerini (gini), insan sermayesi endekslerini, nüfuslarını (milyon cinsinden), gayrisafi yurtiçi hasılalarını (milyar dolar cinsinden), işsizlik oranlarını (nüfusa kıyasla), hukuk endeksi skorlarını, özgürlük mertebelerini ve baskın dini inançlarını içermektedir.  Ham veri üzerinde herhangi bir işlem yapılmamıştır. Veri setine ait özet istatistikler (Tablo \ref{tab:ozet})'de gösterilmiştir. Bu özet istatistiklerden verilerin dağılımları (çarpıklık) hakkında çeşitli çıkarımlar yapılabilir. Standart sapması yüksek, minimum ve maksimum değerleri birbirlerinden yüksek düzeyde ayrışan çarpık dağılımlı denebilecek veriler ve tam tersine sahip veriler bulunmaktadır. Çarpık biçimde dağılanlara örnek olarak Gayrisafi Yurtiçi Hasıla, Nüfus ve Kişi Başı Milli Gelir verilebilir. Kalan veriler normal dağılıma daha yakın, simetrik dağılımlar içermektedir. Simetrik olmayan dağılımlar (Şekil \@ref(fig:plot1)) üzerinden teyit edilebilir. Diğerlerine kıyasla daha simetrik olan dağılımlar ise (Şekil \@ref(fig:plot2)) üzerinden gözlemlenebilir.
 
 ```{r, echo=FALSE}
 library(tidyverse)
@@ -77,7 +75,7 @@ World_Bank_Data <- World_Bank_Data %>%
   select(-`Series Code`, -`Country Code`) %>%
   slice(-c(301:305)) %>%
   pivot_wider(names_from = "Series Name", values_from = "2018 [YR2018]")
-  names(World_Bank_Data) <- (c("Ülke", "Kişi_Başı_Milli_Gelir", "Gini_Endeksi", "Insan_Sermayesi_Endeksi", "Nüfus", "GSYH", "Işsizlik_Oranı"))
+  names(World_Bank_Data) <- (c("Ülke", "Kişi_Başı_Milli_Gelir", "Gini_Endeksi", "Insan_Sermayesi_Endeksi", "Nufus", "GSYH", "Işsizlik_Oranı"))
 World_Bank_Data <- World_Bank_Data %>%
   mutate(Ülke = as.character(case_when(
     Ülke == "Turkiye" ~ "Turkey",
@@ -117,12 +115,14 @@ dat <- left_join(dat, Özgürlük_Endeksi, by="Ülke")
 dat <- left_join(dat, Baskın_Dini_İnanç, by="Ülke")
 
 dat <- dat %>% 
-  mutate(across(c(Kişi_Başı_Milli_Gelir, Gini_Endeksi, Insan_Sermayesi_Endeksi, Nüfus, GSYH, Işsizlik_Oranı),
+  mutate(across(c(Kişi_Başı_Milli_Gelir, Gini_Endeksi, Insan_Sermayesi_Endeksi, Nufus, GSYH, Işsizlik_Oranı),
                 as.numeric))
 
 dat <- dat %>%
-  mutate(GSYH = GSYH/1000000000) #milyar cinsinden belirtebilmek için
+  mutate(GSYH = GSYH/1000000000) #Milyar cinsinden belirtebilmek için.
 
+dat <- dat %>%
+  mutate(Nufus = Nufus/1000000)
 ```
 
 
@@ -135,14 +135,27 @@ st_options(lang = "tr")
 
 ```{r results='asis', echo=FALSE}
 dat %>%
-  select("Mutluluk_Skoru", "Kişi_Başı_Milli_Gelir", "Gini_Endeksi", "Insan_Sermayesi_Endeksi", "Nüfus", "GSYH", "Işsizlik_Oranı", "Hukuk_Skoru") %>% 
+  select("Mutluluk_Skoru", "Kişi_Başı_Milli_Gelir", "Gini_Endeksi", "Insan_Sermayesi_Endeksi", "Nufus", "GSYH", "Işsizlik_Oranı", "Hukuk_Skoru") %>% 
   descr(stats = c("mean", "sd", "min", "med", "max"), transpose = TRUE) %>% 
   xtable(caption = "Özet İstatistikler",
          label = "tab:ozet",
          align = c("l", "c", "c", "c", "c", "c")) %>% 
   print(booktabs = TRUE, comment = FALSE, caption.placement = "top")
 ```
+```{r plot1, echo=FALSE, fig.align='center', fig.cap='Dağılım Matrisi'}
+library(ggplot2)
+library(GGally)
+dat %>% 
+ select(Kişi_Başı_Milli_Gelir, Nufus, GSYH) %>%
+   ggpairs(columnLabels = c("Kişi Başı Gelir", "Nüfus", "GSYH")) + theme_bw(base_size = 10, base_family = "ArialMT")
+```
 
+```{r plot2, echo=FALSE, fig.align='center', fig.cap='2.Dağılım Matrisi'}
+dat %>%
+  filter(complete.cases(.)) %>%
+  select(Hukuk_Skoru, Mutluluk_Skoru, Gini_Endeksi, Insan_Sermayesi_Endeksi) %>%
+  ggpairs(columnLabels = c("Hukuk", "Mutluluk", "Gini katsayısı", "İnsan Sermayesi")) + theme_bw(base_size = 10, base_family = "ArialMT")
+```
 
 # Yöntem ve Veri Analizi
 Bu bölümde veri setindeki bilgileri kullanarak çalışmanın amacına ulaşmak için kullanılacak yöntemleri açıklayın. Derste işlenen/işlenecek olan analiz yöntemlerinden (Hipotez testleri ve korelasyon analizi gibi) çalışmanın amacına ve veri setine uygun olanlar bu bölümde kullanılmalıdır.
@@ -153,12 +166,8 @@ $$
 Y_t = \beta_0 + \beta_N N_t + \beta_P P_t + \beta_I I_t + \varepsilon_t
 $$
 
-Bu bölümde analize ilişkin farklı tablolar ve grafiklere yer verilmelidir. Çalışmanıza uygun biçimde histogram, nokta grafiği (Şekil \@ref(fig:plot) gibi), kutu grafiği, vb. grafikleri bu bölüme ekleyiniz. Şekillerinize de gerekli göndermeleri bir önceki cümlede gösterildiği gibi yapınız.
+Bu bölümde analize ilişkin farklı tablolar ve grafiklere yer verilmelidir. Çalışmanıza uygun biçimde histogram, nokta grafiği (Şekil  gibi), kutu grafiği, vb. grafikleri bu bölüme ekleyiniz. Şekillerinize de gerekli göndermeleri bir önceki cümlede gösterildiği gibi yapınız.
 
-
-```{r plot, fig.align='center', fig.cap='Muhteşem Bir Grafik'}
-
-```
 
 
 # Sonuç
