@@ -31,9 +31,6 @@ abstract: |
 knitr::opts_chunk$set(cache = FALSE, echo = TRUE, message = FALSE, warning = FALSE)
 ```
 
-<!-- ======================================================================= -->
-<!-- ============================== NOTLAR ================================= -->
-<!-- ======================================================================= -->
 [^1]: 21080197, [Github Repo](https://github.com/AkinAyd/final)
 
 # Giriş
@@ -59,7 +56,9 @@ Richard Easterlin'in çalışmalarında ulaşılan sonuçlara en büyük itiraz,
 
 
 # Veri 
-Veri, bir önceki bölümde belirtildiği gibi çeşitli kaynaklardan toplanmıştır. Veri, seçilmiş ülkelerin mutluluk skorlarını, kişi başı milli gelirlerini (dolar bazlı), gelir dağılımı endekslerini (gini), insan sermayesi endekslerini, nüfuslarını (milyon cinsinden), gayrisafi yurtiçi hasılalarını (milyar dolar cinsinden), işsizlik oranlarını (nüfusa kıyasla), hukuk endeksi skorlarını, özgürlük mertebelerini ve baskın dini inançlarını içermektedir.  Ham veri üzerinde herhangi bir işlem yapılmamıştır. Veri setine ait özet istatistikler (Tablo \ref{tab:ozet})'de gösterilmiştir. Bu özet istatistiklerden verilerin dağılımları (çarpıklık) hakkında çeşitli çıkarımlar yapılabilir. Standart sapması yüksek, minimum ve maksimum değerleri birbirlerinden yüksek düzeyde ayrışan çarpık dağılımlı denebilecek veriler ve tam tersine sahip veriler bulunmaktadır. Çarpık biçimde dağılanlara örnek olarak Gayrisafi Yurtiçi Hasıla, Nüfus ve Kişi Başı Milli Gelir verilebilir. Kalan veriler normal dağılıma daha yakın, simetrik dağılımlar içermektedir. Simetrik olmayan dağılımlar (Şekil \@ref(fig:plot1)) üzerinden teyit edilebilir. Diğerlerine kıyasla daha simetrik olan dağılımlar ise (Şekil \@ref(fig:plot2)) üzerinden gözlemlenebilir.
+Veri, bir önceki bölümde belirtildiği gibi çeşitli kaynaklardan toplanmıştır. Veri, seçilmiş ülkelerin mutluluk skorlarını, kişi başı milli gelirlerini (dolar bazlı), gelir dağılımı endekslerini (gini), insan sermayesi endekslerini, nüfuslarını (milyon cinsinden), gayrisafi yurtiçi hasılalarını (milyar dolar cinsinden), işsizlik oranlarını (nüfusa kıyasla), hukuk endeksi skorlarını, özgürlük mertebelerini ve baskın dini inançlarını içermektedir.  Ham veri üzerinde herhangi bir işlem yapılmamıştır. 
+
+Veri setine ait özet istatistikler (Tablo \ref{tab:ozet})'de gösterilmiştir. Bu özet istatistiklerden verilerin dağılımları (çarpıklıkları) hakkında çeşitli çıkarımlar yapılabilir. Standart sapması yüksek, minimum ve maksimum değerleri birbirlerinden yüksek düzeyde ayrışan çarpık dağılımlı denebilecek veriler ve tam tersine sahip veriler bulunmaktadır. Çarpık biçimde dağılanlara örnek olarak Gayrisafi Yurtiçi Hasıla, Nüfus ve Kişi Başı Milli Gelir verilebilir. Kalan veriler normal dağılıma daha yakın, simetrik dağılımlar içermektedir. Simetrik olmayan dağılımlar (Şekil \@ref(fig:plot1)) üzerinden teyit edilebilir. Diğerlerine kıyasla daha simetrik olan dağılımlar ise (Şekil \@ref(fig:plot2)) üzerinden gözlemlenebilir.
 
 ```{r, echo=FALSE}
 library(tidyverse)
@@ -105,8 +104,13 @@ Hukuk_Endeksi <- Hukuk_Endeksi %>%
 names(Özgürlük_Endeksi) <- (c("Ülke", "Rejim"))
 
 Baskın_Dini_İnanç <- Baskın_Dini_İnanç %>%
-  select("ICOUNTRY", "MAJRELNAME")
+  select("ICOUNTRY", "MAJRELNAME") %>%
+  mutate(ICOUNTRY = as.character(case_when(
+    ICOUNTRY == "United States (General)" ~ "United States",
+    TRUE ~ ICOUNTRY)))
 names(Baskın_Dini_İnanç) <- (c("Ülke", "Baskın_Dini_Inanç"))
+
+  
 
 dat <- left_join(World_Bank_Data, Mutluluk_Endeksi, by = "Ülke") %>%
   relocate(Mutluluk_Skoru, .before = Kişi_Başı_Milli_Gelir)
@@ -157,18 +161,32 @@ dat %>%
   ggpairs(columnLabels = c("Hukuk", "Mutluluk", "Gini katsayısı", "İnsan Sermayesi")) + theme_bw(base_size = 10, base_family = "ArialMT")
 ```
 
+
 # Yöntem ve Veri Analizi
-Bu bölümde veri setindeki bilgileri kullanarak çalışmanın amacına ulaşmak için kullanılacak yöntemleri açıklayın. Derste işlenen/işlenecek olan analiz yöntemlerinden (Hipotez testleri ve korelasyon analizi gibi) çalışmanın amacına ve veri setine uygun olanlar bu bölümde kullanılmalıdır.
+Kullanılan veri setinde Mutluluk skoru (bağımlı, $Y$) sonuç değişkendir. Kalan veriler ise mutluluğu açıklamaya çalışmakta kullanılan öngörücü (bağımsız, $x$) değişkenleridir. Mutluluk skoru ile sayısal olan değişkenler arasındaki ilişkiyi açıklamak için basit doğrusal regresyon analizi kullanılmıştır. Kategorik değişkenler arasında oluşan mutluluk farklılığının anlamlılığını sorgulamak için ise ANOVA (varyans analizi) kullanılmıştır. Son olarak özet niteliğinde bir grafik oluşması adına sayısal değişkenler arasında korelasyon ısı haritası oluşturulmuştur.
 
-Örneğin, regresyon analizi gerçekleştiriyorsanız tahmin ettiğiniz denklemi bu bölümde tartışınız. Denklemlerinizi ve matematiksel ifadeleri $LaTeX$ kullanarak yazınız.
-
+## Regresyon Analizleri
+İlk olarak çalışmadaki temel öngörücü değişken olan kişi başı gelir ile bir doğrusal regresyon analizi yapılmıştır. Sonuç (Tablo \ref{tab:mutlulukgelir}) üzerinden gözlemlenebilir. Bu veriler ile iki değişkenin arasındaki ilişkinin regresyon tahmini aşağıdaki denklemdeki gibidir:
 $$
-Y_t = \beta_0 + \beta_N N_t + \beta_P P_t + \beta_I I_t + \varepsilon_t
+Mutluluk Skoru = 4.81 + 0.00005071 (Kisi Bası Gelir)
 $$
+Denklem üzerinden iki değişkenin güçlü bir ilişki içerisinde olmadığı gözlemleniyor olsa da, veriler grafiksel olarak incelendiğinde ilişkinin doğrusal olmasa da pozitif yönlü bir ilişki olduğu gözlemlenmektedir. Grafik (Şekil \@ref(fig:plot3)) üzerinden incelenebilir.
 
-Bu bölümde analize ilişkin farklı tablolar ve grafiklere yer verilmelidir. Çalışmanıza uygun biçimde histogram, nokta grafiği (Şekil  gibi), kutu grafiği, vb. grafikleri bu bölüme ekleyiniz. Şekillerinize de gerekli göndermeleri bir önceki cümlede gösterildiği gibi yapınız.
+```{r results='asis', echo=FALSE}
+library(broom)
+mutluluk_gelir_tablo <- lm(Mutluluk_Skoru ~ Kişi_Başı_Milli_Gelir, data = dat)
+tidy(mutluluk_gelir_tablo) %>%
+  xtable(caption = "Mutluluk ve Kişi Başı Milli Gelir Regresyon Tahmini",
+         label = "tab:mutlulukgelir",
+  align = c("l", "c", "c", "c", "c", "c"
+            ),digits = c(0, 2, 8, 8, 2, 2)) %>%
+  print(booktabs = TRUE, comment = FALSE, caption.placement = "top")
+```
+```{r plot3, echo=FALSE, fig.align='center', fig.cap='Mutluluk Ve Kişi Başı Gelir Arasındaki İlişkinin Grafiksel Gösterimi'}
 
+ggplot(dat) + aes(x = Kişi_Başı_Milli_Gelir , y = Mutluluk_Skoru) + geom_point() + labs(x= "Gelir Düzeyi ($ cinsinden)", y= "Mutluluk") + theme_bw() + geom_smooth(method = "lm", se = TRUE, color = "steelblue")
 
+```
 
 # Sonuç
 Bu bölümde çalışmanızın sonuçlarını özetleyiniz. Sonuçlarınızın başlangıçta belirlediğiniz araştırma sorusuna ne derece cevap verdiğini ve ileride bu çalışmanın nasıl geliştirilebileceğini tartışınız.
