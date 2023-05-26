@@ -56,7 +56,7 @@ Richard Easterlin'in çalışmalarında ulaşılan sonuçlara en büyük itiraz,
 
 
 # Veri 
-Veri, bir önceki bölümde belirtildiği gibi çeşitli kaynaklardan toplanmıştır. Veri, seçilmiş ülkelerin mutluluk skorlarını, kişi başı milli gelirlerini (dolar bazlı), gelir dağılımı endekslerini (gini), insan sermayesi endekslerini, nüfuslarını (milyon cinsinden), gayrisafi yurtiçi hasılalarını (milyar dolar cinsinden), işsizlik oranlarını (nüfusa kıyasla), hukuk endeksi skorlarını, özgürlük mertebelerini ve baskın dini inançlarını içermektedir.  Ham veri üzerinde herhangi bir işlem yapılmamıştır. 
+Veri, bir önceki bölümde belirtildiği gibi çeşitli kaynaklardan toplanmıştır. Veri, seçilmiş ülkelerin mutluluk skorlarını, kişi başı milli gelirlerini (dolar bazlı), gelir dağılımı endekslerini (gini), insan sermayesi endekslerini, nüfuslarını (milyon cinsinden), gayrisafi yurtiçi hasılalarını (milyar dolar cinsinden), işsizlik oranlarını (nüfusa kıyasla), hukuk endeksi skorlarını, özgürlük mertebelerini ve baskın dini inançlarını içermektedir. Ham veri üzerinde herhangi bir işlem yapılmamıştır. 
 
 Veri setine ait özet istatistikler (Tablo \ref{tab:ozet})'de gösterilmiştir. Bu özet istatistiklerden verilerin dağılımları (çarpıklıkları) hakkında çeşitli çıkarımlar yapılabilir. Standart sapması yüksek, minimum ve maksimum değerleri birbirlerinden yüksek düzeyde ayrışan çarpık dağılımlı denebilecek veriler ve tam tersine sahip veriler bulunmaktadır. Çarpık biçimde dağılanlara örnek olarak Gayrisafi Yurtiçi Hasıla, Nüfus ve Kişi Başı Milli Gelir verilebilir. Kalan veriler normal dağılıma daha yakın, simetrik dağılımlar içermektedir. Simetrik olmayan dağılımlar (Şekil \@ref(fig:plot1)) üzerinden teyit edilebilir. Diğerlerine kıyasla daha simetrik olan dağılımlar ise (Şekil \@ref(fig:plot2)) üzerinden gözlemlenebilir.
 
@@ -161,16 +161,16 @@ dat %>%
   ggpairs(columnLabels = c("Hukuk", "Mutluluk", "Gini katsayısı", "İnsan Sermayesi")) + theme_bw(base_size = 10, base_family = "ArialMT")
 ```
 
-
 # Yöntem ve Veri Analizi
 Kullanılan veri setinde Mutluluk skoru (bağımlı, $Y$) sonuç değişkendir. Kalan veriler ise mutluluğu açıklamaya çalışmakta kullanılan öngörücü (bağımsız, $x$) değişkenleridir. Mutluluk skoru ile sayısal olan değişkenler arasındaki ilişkiyi açıklamak için basit doğrusal regresyon analizi kullanılmıştır. Kategorik değişkenler arasında oluşan mutluluk farklılığının anlamlılığını sorgulamak için ise ANOVA (varyans analizi) kullanılmıştır. Son olarak özet niteliğinde bir grafik oluşması adına sayısal değişkenler arasında korelasyon ısı haritası oluşturulmuştur.
 
 ## Regresyon Analizleri
 İlk olarak çalışmadaki temel öngörücü değişken olan kişi başı gelir ile bir doğrusal regresyon analizi yapılmıştır. Sonuç (Tablo \ref{tab:mutlulukgelir}) üzerinden gözlemlenebilir. Bu veriler ile iki değişkenin arasındaki ilişkinin regresyon tahmini aşağıdaki denklemdeki gibidir:
+
 $$
 Mutluluk Skoru = 4.81 + 0.00005071 (Kisi Bası Gelir)
 $$
-Denklem üzerinden iki değişkenin güçlü bir ilişki içerisinde olmadığı gözlemleniyor olsa da, veriler grafiksel olarak incelendiğinde ilişkinin doğrusal olmasa da pozitif yönlü bir ilişki olduğu gözlemlenmektedir. Grafik (Şekil \@ref(fig:plot3)) üzerinden incelenebilir.
+P değerleri 0 düzeyindedir yani bu tahmin anlamlıdır. Denklem üzerinden iki değişkenin güçlü bir ilişki içerisinde olmadığı gözlemleniyor olsa da, veriler grafiksel olarak incelendiğinde ilişkinin doğrusal olmasa da pozitif yönlü olduğu gözlemlenmektedir. Grafik (Şekil \@ref(fig:plot3)) üzerinden incelenebilir.
 
 ```{r results='asis', echo=FALSE}
 library(broom)
@@ -188,11 +188,12 @@ ggplot(dat) + aes(x = Kişi_Başı_Milli_Gelir , y = Mutluluk_Skoru) + geom_poin
 
 ```
 
-Bir diğer değişken olan gini endeksi, ülkeler arasında gelir dağılımının nasıl bir durumda olduğunu gösterir. Bu veriler ile gelir dağılımı ve mutluluk arasında bir ilişkinin olup olmadığı sınanabilir. Yapılan doğrusal regresyon analizinin sonuçları (Tablo \ref{tab:mutlulukgelirdagilimi})'de gösterilmiştir. Bu veriler ile iki değişkenin arasındaki ilişkinin regresyon tahmini aşağıdaki denklemdeki gibidir:
+Bir diğer değişken olan gini endeksi, ülkeler arasında gelir dağılımının nasıl bir durumda olduğunu gösterir. Bu veriler ile gelir dağılımı ve mutluluk arasında bir ilişkinin olup olmadığı sınanabilir. Yapılan doğrusal regresyon analizinin sonuçları (Tablo \ref{tab:mutlulukgelirdagilimi})'de gösterilmiştir. Bu veriler ile iki değişken arasındaki ilişkinin regresyon tahmini aşağıdaki denklemdeki gibidir:
+
 $$
 MutlulukSkoru = 6.72 - 0.02(Gini Katsayısı)
 $$
-İki değişken arasında bir ilişki olmadığı denklemden gözlemlenebilir, aynı zamanda grafik üzerinden de teyit edilebilir. (Şekil \@ref(fig:plot4)) iki değişken arasındaki ilişkinin grafiksel gösterimidir.
+P değerlerinden gini katsayısının mutluluk üzerindeki etkisinin anlamlı olmadığı görülebilir ve iki değişken arasında bir ilişki olmadığı denklemden gözlemlenebilir, aynı zamanda grafik üzerinden de teyit edilebilir. (Şekil \@ref(fig:plot4)) iki değişken arasındaki ilişkinin grafiksel gösterimidir.
 
 ```{r results='asis', echo=FALSE}
 mutluluk_gelir_dagilimi_tablo <- lm(Mutluluk_Skoru ~ Gini_Endeksi, data = dat)
@@ -209,12 +210,51 @@ tidy(mutluluk_gelir_dagilimi_tablo) %>%
 ggplot(dat) + aes(x = Gini_Endeksi , y = Mutluluk_Skoru) + geom_point() + labs(x= "Gini Endeksi", y= "Mutluluk") + theme_bw() + geom_smooth(method = "lm", se = TRUE, color = "steelblue")
 
 ```
+Diğer bir değişken olan insan sermayesi endeksi ülkelerdeki eğitim seviyeleri, sağlık hizmetlerine olan erişim, iş gücü piyasası etkinliği gibi çeşitli faktörleri ölçüp endekslenmiş biçimde sunan bir değişkendir. Regresyon analizinden elde sonuçlar (Tablo \ref{tab:mutlulukhci})'de gösterilmektedir. Elde edilen tahmin denklemi şu şekildedir:
 
+$$
+Mutluluk Skoru = 1.87 + 6.07(Insan Sermayesi Endeksi)
+$$
+P değerleri 0 düzeyine yakındır, bu da yapılan analizi istatistiki açıdan anlamlı kılar. Denklem ve grafik üzerinden görülebileceği gibi insan sermayesi endeksi ve mutluluk seviyesi değişkenleri pozitif yönlü bir ilişki içerisindedir. Grafiksel gösterim (Şekil \@ref(fig:plot5))'de görülebilir.
 
+```{r results='asis', echo=FALSE}
+mutluluk_hci_tablo <- lm(Mutluluk_Skoru ~ Insan_Sermayesi_Endeksi, data = dat)
+tidy(mutluluk_hci_tablo) %>%
+  xtable(caption = "Mutluluk ve İnsan Sermayesi Endeksi Regresyon Tahmini",
+         label = "tab:mutlulukhci",
+  align = c("l", "c", "c", "c", "c", "c"
+            )) %>%
+  print(booktabs = TRUE, comment = FALSE, caption.placement = "top")
+```
 
+```{r plot5, echo=FALSE, fig.align='center', fig.cap='Mutluluk Ve İnsan Sermayesi Arasındaki İlişkinin Grafiksel Gösterimi'}
 
+ggplot(dat) + aes(x = Insan_Sermayesi_Endeksi , y = Mutluluk_Skoru) + geom_point() + labs(x= "İnsan Sermayesi Endeksi", y= "Mutluluk") + theme_bw() + geom_smooth(method = "lm", se = TRUE, color = "steelblue")
+
+```
+
+Nüfus, ülkelerin aldığı kararları ve sonuçları etkileyen önemli bir değişkendir. Nüfusun mutluluk üzerindeki etkisi regresyon analizi ile incelenebilir. Sonuçlar (Tablo \ref{tab:mutluluknufus})'de gözükmektedir. P değeri anlamlı olmadığını göstermektedir. Elde edilen tahmin denklemi şu şekildedir:
+
+$$
+Mutluluk Skoru = 5.66 - 0.00058567(Nufus)
+$$
+Denklemde gözüken anlamsızlık grafiksel gösterimden de gözlemlenebilir. Grafik (şekil \@ref(fig:plot6))'da gösterilmiştir.
+
+```{r results='asis', echo=FALSE}
+mutluluk_nüfus_tablo <- lm(Mutluluk_Skoru ~ Nufus, data = dat)
+tidy(mutluluk_nüfus_tablo) %>%
+  xtable(caption = "Mutluluk ve Nüfus Regresyon Tahmini",
+         label = "tab:mutluluknufus",
+  align = c("l", "c", "c", "c", "c", "c"
+            ), digits = c(0, 2, 8, 8, 2, 2)) %>%
+  print(booktabs = TRUE, comment = FALSE, caption.placement = "top")
+```
+```{r plot6, echo=FALSE, fig.align='center', fig.cap='Mutluluk Ve Nüfus Arasındaki İlişkinin Grafiksel Gösterimi'}
+
+ggplot(dat) + aes(x = Nufus , y = Mutluluk_Skoru) + geom_point() + labs(x= "Nufus (milyon cinsinden)", y= "Mutluluk") + theme_bw() + geom_smooth(method = "lm", se = TRUE, color = "steelblue")
+```
+\newpage
 # Sonuç
-Bu bölümde çalışmanızın sonuçlarını özetleyiniz. Sonuçlarınızın başlangıçta belirlediğiniz araştırma sorusuna ne derece cevap verdiğini ve ileride bu çalışmanın nasıl geliştirilebileceğini tartışınız.
 
 **Kaynakça bölümü Rmarkdown tarafından otomatik olarak oluşturulmaktadır. Taslak dosyada Kaynakça kısmında herhangi bir değişikliğe gerek yoktur.** 
 
