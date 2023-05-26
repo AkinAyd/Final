@@ -188,6 +188,31 @@ ggplot(dat) + aes(x = Kişi_Başı_Milli_Gelir , y = Mutluluk_Skoru) + geom_poin
 
 ```
 
+Bir diğer değişken olan gini endeksi, ülkeler arasında gelir dağılımının nasıl bir durumda olduğunu gösterir. Bu veriler ile gelir dağılımı ve mutluluk arasında bir ilişkinin olup olmadığı sınanabilir. Yapılan doğrusal regresyon analizinin sonuçları (Tablo \ref{tab:mutlulukgelirdagilimi})'de gösterilmiştir. Bu veriler ile iki değişkenin arasındaki ilişkinin regresyon tahmini aşağıdaki denklemdeki gibidir:
+$$
+MutlulukSkoru = 6.72 - 0.02(Gini Katsayısı)
+$$
+İki değişken arasında bir ilişki olmadığı denklemden gözlemlenebilir, aynı zamanda grafik üzerinden de teyit edilebilir. (Şekil \@ref(fig:plot4)) iki değişken arasındaki ilişkinin grafiksel gösterimidir.
+
+```{r results='asis', echo=FALSE}
+mutluluk_gelir_dagilimi_tablo <- lm(Mutluluk_Skoru ~ Gini_Endeksi, data = dat)
+tidy(mutluluk_gelir_dagilimi_tablo) %>%
+  xtable(caption = "Mutluluk ve Gelir Dağılımı Regresyon Tahmini",
+         label = "tab:mutlulukgelirdagilimi",
+  align = c("l", "c", "c", "c", "c", "c"
+            )) %>%
+  print(booktabs = TRUE, comment = FALSE, caption.placement = "top")
+```
+
+```{r plot4, echo=FALSE, fig.align='center', fig.cap='Mutluluk Ve Gelir Dağılımı Arasındaki İlişkinin Grafiksel Gösterimi'}
+
+ggplot(dat) + aes(x = Gini_Endeksi , y = Mutluluk_Skoru) + geom_point() + labs(x= "Gini Endeksi", y= "Mutluluk") + theme_bw() + geom_smooth(method = "lm", se = TRUE, color = "steelblue")
+
+```
+
+
+
+
 # Sonuç
 Bu bölümde çalışmanızın sonuçlarını özetleyiniz. Sonuçlarınızın başlangıçta belirlediğiniz araştırma sorusuna ne derece cevap verdiğini ve ileride bu çalışmanın nasıl geliştirilebileceğini tartışınız.
 
