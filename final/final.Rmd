@@ -36,7 +36,7 @@ knitr::opts_chunk$set(cache = FALSE, echo = TRUE, message = FALSE, warning = FAL
 # Giriş
 Mutluluk, insanların doğumdan ölüme kadar ençoklamaya (maksimize etmeye) çalıştığı temel unsurlardan biridir. Bu bağlamda mutluluk, birçok sosyal bilimcinin üzerinde çalıştığı konulardan biri olmuştur. Literatüre farklı kavramlar ve analiz çeşitleri de zaman içinde eklenmiştir.
 
-Çalışma seçilmiş ülkelerin 2018 yılından elde edilmiş ulusal verileri ile yürütülmektedir. Çalışmada gelir dağılımı (Gini endeksi), yıllık kişi başı milli gelir, özgürlük mertebesi, hukuka bağlılık, ülkede baskın olan dini inanç, mutluluk, toplam nüfus, insan sermayesi endeksi, gayrisafi yurtiçi hasıla ve işsizlik oranı değişkenleri kullanılmıştır. Mutluluk bağımlı değişken olmakla beraber kalan değişkenler bağımsız değişken olarak değerlendirilmiştir. Ülkede baskın olan dini inanç ve özgürlük mertebesi kategorik değişkenler iken kalan değişkenler sayısal değişkenlerdir. Sayısal değişkenler arasında regresyon analizi ve kategorik değişkenler arasında varyans analizi yapılması öngörülmektedir. Gözlem olarak düşük gelirli, düşük-orta gelirli, yüksek-orta gelirli ve yüksek gelirli ülkeler arasından 50 adet ülke seçilmiştir.
+Çalışma seçilmiş ülkelerin 2018 yılından elde edilmiş ulusal verileri ile yürütülmektedir. Çalışmada gelir dağılımı (Gini endeksi), yıllık kişi başı milli gelir, özgürlük mertebesi, hukuka bağlılık, ülkede baskın olan dini inanç, mutluluk, toplam nüfus, insan sermayesi endeksi, gayrisafi yurtiçi hasıla ve işsizlik oranı değişkenleri kullanılmıştır. Mutluluk bağımlı değişken olmakla beraber kalan değişkenler bağımsız değişken olarak değerlendirilmiştir. Ülkede baskın olan dini inanç ve özgürlük mertebesi kategorik değişkenler iken kalan değişkenler sayısal değişkenlerdir. Sayısal değişkenler arasında regresyon analizi ve kategorik değişkenler arasında varyans analizi yapılmıştır. Gözlem olarak düşük gelirli, düşük-orta gelirli, yüksek-orta gelirli ve yüksek gelirli ülkeler arasından 50 adet ülke seçilmiştir.
 
 ## Çalışmada Kullanılan Veri
 Çalışmada kullanılan veri çeşitli kaynaklardan toplanmıştır. Mutluluk endeksini elde etmek için [World Happiness Report](https://worldhappiness.report), dini verileri elde etmek için [ARDA](https://www.thearda.com), özgürlük hakkında veriler elde etmek için [Freedom House](https://freedomhouse.org), hukuka bağlılık hakkında veriler elde etmek için [World Justice Project](https://worldjusticeproject.org) ve kalan verileri elde etmek için de (toplam nüfus, gini endeksi, insan sermayesi endeksi, yıllık kişi başı milli gelir, gayrisafi yurtiçi hasıla ve işsizlik oranı) [World Bank](https://data.worldbank.org) kullanılmıştır.
@@ -204,7 +204,6 @@ tidy(mutluluk_gelir_dagilimi_tablo) %>%
             )) %>%
   print(booktabs = TRUE, comment = FALSE, caption.placement = "top")
 ```
-
 ```{r plot4, echo=FALSE, fig.align='center', fig.cap='Mutluluk Ve Gelir Dağılımı Arasındaki İlişkinin Grafiksel Gösterimi'}
 
 ggplot(dat) + aes(x = Gini_Endeksi , y = Mutluluk_Skoru) + geom_point() + labs(x= "Gini Endeksi", y= "Mutluluk") + theme_bw() + geom_smooth(method = "lm", se = TRUE, color = "steelblue")
@@ -226,19 +225,19 @@ tidy(mutluluk_hci_tablo) %>%
             )) %>%
   print(booktabs = TRUE, comment = FALSE, caption.placement = "top")
 ```
-
 ```{r plot5, echo=FALSE, fig.align='center', fig.cap='Mutluluk Ve İnsan Sermayesi Arasındaki İlişkinin Grafiksel Gösterimi'}
 
 ggplot(dat) + aes(x = Insan_Sermayesi_Endeksi , y = Mutluluk_Skoru) + geom_point() + labs(x= "İnsan Sermayesi Endeksi", y= "Mutluluk") + theme_bw() + geom_smooth(method = "lm", se = TRUE, color = "steelblue")
 
 ```
+\newpage
 
 Nüfus, ülkelerin aldığı kararları ve sonuçları etkileyen önemli bir değişkendir. Nüfusun mutluluk üzerindeki etkisi regresyon analizi ile incelenebilir. Sonuçlar (Tablo \ref{tab:mutluluknufus})'de gözükmektedir. P değeri anlamlı olmadığını göstermektedir. Elde edilen tahmin denklemi şu şekildedir:
 
 $$
 Mutluluk Skoru = 5.66 - 0.00058567(Nufus)
 $$
-Denklemde gözüken anlamsızlık grafiksel gösterimden de gözlemlenebilir. Grafik (şekil \@ref(fig:plot6))'da gösterilmiştir.
+Denklemde gözüken anlamsızlık grafiksel gösterimden de gözlemlenebilir. Grafik (Şekil \@ref(fig:plot6))'da gösterilmiştir.
 
 ```{r results='asis', echo=FALSE}
 mutluluk_nüfus_tablo <- lm(Mutluluk_Skoru ~ Nufus, data = dat)
@@ -253,6 +252,48 @@ tidy(mutluluk_nüfus_tablo) %>%
 
 ggplot(dat) + aes(x = Nufus , y = Mutluluk_Skoru) + geom_point() + labs(x= "Nufus (milyon cinsinden)", y= "Mutluluk") + theme_bw() + geom_smooth(method = "lm", se = TRUE, color = "steelblue")
 ```
+\newpage
+
+Gayrisafi yurtiçi hasıla ülkeler için önem arz eden bir değişkendir. Ülkelerin refah düzeylerinin bir ölçümü olarak görülen bu değişkenin mutluluk üzerindeki etkisi regresyon analizi ile gözlemlenmiştir. Analizin sonuçları (Tablo \ref{tab:mutlulukGSYH})'da gözükmektedir. Bu regresyon tahmininden elde edilen denklem şu şekildedir:
+$$
+Mutluluk Skoru = 5.51 + 0.00006595(GSYH)
+$$
+P değerlerinden gözüktüğü gibi analiz tam bir anlamlılık içermemektedir ve iki değişken arasında bir ilişki olmadığı söylenebilir. Bu sonuçtan bireylerin kişi başı metrikleri daha çok önemsediği çıkarımına varılabilir. İki değişken arasındaki ilişkinin gösterimi (Şekil \@ref(fig:plot7))'dedir.
+
+```{r results='asis', echo=FALSE}
+mutluluk_GSYH_tablo <- lm(Mutluluk_Skoru ~ GSYH, data = dat)
+tidy(mutluluk_GSYH_tablo) %>%
+  xtable(caption = "Mutluluk ve GSYH Regresyon Tahmini",
+         label = "tab:mutlulukGSYH",
+  align = c("l", "c", "c", "c", "c", "c"
+            ), digits = c(0, 2, 8, 8, 2, 2)) %>%
+  print(booktabs = TRUE, comment = FALSE, caption.placement = "top")
+```
+```{r plot7, echo=FALSE, fig.align='center', fig.cap='Mutluluk Ve GSYH Arasındaki İlişkinin Grafiksel Gösterimi'}
+
+ggplot(dat) + aes(x = GSYH , y = Mutluluk_Skoru) + geom_point() + labs(x= "GSYH (milyar $ cinsinden)", y= "Mutluluk") + theme_bw() + geom_smooth(method = "lm", se = TRUE, color = "steelblue")
+```
+\newpage
+İşsizlik, birçok disiplinin üzerine çalıştığı toplumsal sonuçları ağır olabilen bir olgudur. Mutluluk ile ilişkili olması olağan bir durumdur. Yapılan regresyon analizi sonucu (Tablo \ref{tab:mutlulukissizlik})'de verilmiştir. Tahminden elde edilen denklem aşağıdaki gibidir:
+$$
+Mutluluk Skoru = 6.58 -0.08(IssizlikOranı)
+$$
+analiz sonucu ortaya çıkan p değeri anlamlılığını çok yüksek kılmasa da işsizlik oranı ve mutluluk arasında negatif yönlü bir ilişki olduğu ortaya çıkmıştır. 
+```{r results='asis', echo=FALSE}
+mutluluk_issizlik_tablo <- lm(Mutluluk_Skoru ~ Işsizlik_Oranı, data = dat)
+tidy(mutluluk_issizlik_tablo) %>%
+  xtable(caption = "Mutluluk ve İşsizlik Regresyon Tahmini",
+         label = "tab:mutlulukissizlik",
+  align = c("l", "c", "c", "c", "c", "c"
+            )) %>%
+  print(booktabs = TRUE, comment = FALSE, caption.placement = "top")
+```
+```{r plot8, echo=FALSE, fig.align='center', fig.cap='Mutluluk Ve İşsizlik Oranı Arasındaki İlişkinin Grafiksel Gösterimi'}
+
+ggplot(dat) + aes(x = Işsizlik_Oranı , y = Mutluluk_Skoru) + geom_point() + labs(x= "İşsizlik Oranı", y= "Mutluluk") + theme_bw() + geom_smooth(method = "lm", se = TRUE, color = "steelblue")
+```
+
+
 \newpage
 # Sonuç
 
