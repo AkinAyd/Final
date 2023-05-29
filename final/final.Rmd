@@ -162,7 +162,7 @@ dat %>%
 ```
 
 # Yöntem ve Veri Analizi
-Kullanılan veri setinde Mutluluk skoru (bağımlı, $Y$) sonuç değişkendir. Kalan veriler ise mutluluğu açıklamaya çalışmakta kullanılan öngörücü (bağımsız, $x$) değişkenleridir. Mutluluk skoru ile sayısal olan değişkenler arasındaki ilişkiyi açıklamak için basit doğrusal regresyon analizi kullanılmıştır. Kategorik değişkenler arasında oluşan mutluluk farklılığının anlamlılığını sorgulamak için ise ANOVA (varyans analizi) kullanılmıştır. Son olarak özet niteliğinde bir grafik oluşması adına sayısal değişkenler arasında korelasyon ısı haritası oluşturulmuştur.
+Kullanılan veri setinde Mutluluk skoru (bağımlı, $Y$) sonuç değişkendir. Kalan veriler ise mutluluğu açıklamaya çalışmakta kullanılan öngörücü (bağımsız, $x$) değişkenleridir. Mutluluk skoru ile sayısal olan değişkenler arasındaki ilişkiyi açıklamak için basit doğrusal regresyon analizi kullanılmıştır. Kategorik değişkenler arasında oluşan mutluluk farklılığının anlamlılığını sorgulamak için ise ANOVA (varyans analizi) kullanılmıştır.
 
 ## Regresyon Analizleri
 İlk olarak çalışmadaki temel öngörücü değişken olan kişi başı gelir ile bir doğrusal regresyon analizi yapılmıştır. Sonuç (Tablo \ref{tab:mutlulukgelir}) üzerinden gözlemlenebilir. Bu veriler ile iki değişkenin arasındaki ilişkinin regresyon tahmini aşağıdaki denklemdeki gibidir:
@@ -184,7 +184,7 @@ tidy(mutluluk_gelir_tablo) %>%
 ```
 ```{r plot3, echo=FALSE, fig.align='center', fig.cap='Mutluluk Ve Kişi Başı Gelir Arasındaki İlişkinin Grafiksel Gösterimi'}
 
-ggplot(dat) + aes(x = Kişi_Başı_Milli_Gelir , y = Mutluluk_Skoru) + geom_point() + labs(x= "Gelir Düzeyi ($ cinsinden)", y= "Mutluluk") + theme_bw() + geom_smooth(method = "lm", se = TRUE, color = "steelblue")
+ggplot(dat) + aes(x = Kişi_Başı_Milli_Gelir , y = Mutluluk_Skoru) + geom_point() + labs(x= "Gelir Düzeyi ($ cinsinden)", y= "Mutluluk Skoru") + theme_bw() + geom_smooth(method = "lm", se = TRUE, color = "steelblue")
 
 ```
 
@@ -193,7 +193,7 @@ Bir diğer değişken olan gini endeksi, ülkeler arasında gelir dağılımın�
 $$
 MutlulukSkoru = 6.72 - 0.02(Gini Katsayısı)
 $$
-P değerlerinden gini katsayısının mutluluk üzerindeki etkisinin anlamlı olmadığı görülebilir ve iki değişken arasında bir ilişki olmadığı denklemden gözlemlenebilir, aynı zamanda grafik üzerinden de teyit edilebilir. (Şekil \@ref(fig:plot4)) iki değişken arasındaki ilişkinin grafiksel gösterimidir.
+P değerlerinden analizin anlamlı olmadığı görülebilir ve iki değişken arasında bir ilişki olmadığı denklemden gözlemlenebilir, aynı zamanda grafik üzerinden de teyit edilebilir. (Şekil \@ref(fig:plot4)) iki değişken arasındaki ilişkinin grafiksel gösterimidir.
 
 ```{r results='asis', echo=FALSE}
 mutluluk_gelir_dagilimi_tablo <- lm(Mutluluk_Skoru ~ Gini_Endeksi, data = dat)
@@ -206,7 +206,7 @@ tidy(mutluluk_gelir_dagilimi_tablo) %>%
 ```
 ```{r plot4, echo=FALSE, fig.align='center', fig.cap='Mutluluk Ve Gelir Dağılımı Arasındaki İlişkinin Grafiksel Gösterimi'}
 
-ggplot(dat) + aes(x = Gini_Endeksi , y = Mutluluk_Skoru) + geom_point() + labs(x= "Gini Endeksi", y= "Mutluluk") + theme_bw() + geom_smooth(method = "lm", se = TRUE, color = "steelblue")
+ggplot(dat) + aes(x = Gini_Endeksi , y = Mutluluk_Skoru) + geom_point() + labs(x= "Gini Endeksi Skoru", y= "Mutluluk Skoru") + theme_bw() + geom_smooth(method = "lm", se = TRUE, color = "steelblue")
 
 ```
 Diğer bir değişken olan insan sermayesi endeksi ülkelerdeki eğitim seviyeleri, sağlık hizmetlerine olan erişim, iş gücü piyasası etkinliği gibi çeşitli faktörleri ölçüp endekslenmiş biçimde sunan bir değişkendir. Regresyon analizinden elde sonuçlar (Tablo \ref{tab:mutlulukhci})'de gösterilmektedir. Elde edilen tahmin denklemi şu şekildedir:
@@ -227,7 +227,7 @@ tidy(mutluluk_hci_tablo) %>%
 ```
 ```{r plot5, echo=FALSE, fig.align='center', fig.cap='Mutluluk Ve İnsan Sermayesi Arasındaki İlişkinin Grafiksel Gösterimi'}
 
-ggplot(dat) + aes(x = Insan_Sermayesi_Endeksi , y = Mutluluk_Skoru) + geom_point() + labs(x= "İnsan Sermayesi Endeksi", y= "Mutluluk") + theme_bw() + geom_smooth(method = "lm", se = TRUE, color = "steelblue")
+ggplot(dat) + aes(x = Insan_Sermayesi_Endeksi , y = Mutluluk_Skoru) + geom_point() + labs(x= "İnsan Sermayesi Endeksi", y= "Mutluluk Skoru") + theme_bw() + geom_smooth(method = "lm", se = TRUE, color = "steelblue")
 
 ```
 \newpage
@@ -250,7 +250,7 @@ tidy(mutluluk_nüfus_tablo) %>%
 ```
 ```{r plot6, echo=FALSE, fig.align='center', fig.cap='Mutluluk Ve Nüfus Arasındaki İlişkinin Grafiksel Gösterimi'}
 
-ggplot(dat) + aes(x = Nufus , y = Mutluluk_Skoru) + geom_point() + labs(x= "Nufus (milyon cinsinden)", y= "Mutluluk") + theme_bw() + geom_smooth(method = "lm", se = TRUE, color = "steelblue")
+ggplot(dat) + aes(x = Nufus , y = Mutluluk_Skoru) + geom_point() + labs(x= "Nufus (milyon cinsinden)", y= "Mutluluk Skoru") + theme_bw() + geom_smooth(method = "lm", se = TRUE, color = "steelblue")
 ```
 \newpage
 
@@ -271,14 +271,14 @@ tidy(mutluluk_GSYH_tablo) %>%
 ```
 ```{r plot7, echo=FALSE, fig.align='center', fig.cap='Mutluluk Ve GSYH Arasındaki İlişkinin Grafiksel Gösterimi'}
 
-ggplot(dat) + aes(x = GSYH , y = Mutluluk_Skoru) + geom_point() + labs(x= "GSYH (milyar $ cinsinden)", y= "Mutluluk") + theme_bw() + geom_smooth(method = "lm", se = TRUE, color = "steelblue")
+ggplot(dat) + aes(x = GSYH , y = Mutluluk_Skoru) + geom_point() + labs(x= "GSYH (milyar $ cinsinden)", y= "Mutluluk Skoru") + theme_bw() + geom_smooth(method = "lm", se = TRUE, color = "steelblue")
 ```
 \newpage
 İşsizlik, birçok disiplinin üzerine çalıştığı toplumsal sonuçları ağır olabilen bir olgudur. Mutluluk ile ilişkili olması olağan bir durumdur. Yapılan regresyon analizi sonucu (Tablo \ref{tab:mutlulukissizlik})'de verilmiştir. Tahminden elde edilen denklem aşağıdaki gibidir:
 $$
 Mutluluk Skoru = 6.58 -0.08(IssizlikOranı)
 $$
-analiz sonucu ortaya çıkan p değeri anlamlılığını çok yüksek kılmasa da işsizlik oranı ve mutluluk arasında negatif yönlü bir ilişki olduğu ortaya çıkmıştır. 
+analiz sonucu ortaya çıkan p değeri anlamlılığını çok yüksek kılmasa da işsizlik oranı ve mutluluk arasında negatif yönlü bir ilişki olduğu ortaya çıkmıştır. İki değişken arasındaki ilişki görsel olarak (Şekil \@ref(fig:plot8)) üzerinden gözlemlenebilir.
 ```{r results='asis', echo=FALSE}
 mutluluk_issizlik_tablo <- lm(Mutluluk_Skoru ~ Işsizlik_Oranı, data = dat)
 tidy(mutluluk_issizlik_tablo) %>%
@@ -290,8 +290,32 @@ tidy(mutluluk_issizlik_tablo) %>%
 ```
 ```{r plot8, echo=FALSE, fig.align='center', fig.cap='Mutluluk Ve İşsizlik Oranı Arasındaki İlişkinin Grafiksel Gösterimi'}
 
-ggplot(dat) + aes(x = Işsizlik_Oranı , y = Mutluluk_Skoru) + geom_point() + labs(x= "İşsizlik Oranı", y= "Mutluluk") + theme_bw() + geom_smooth(method = "lm", se = TRUE, color = "steelblue")
+ggplot(dat) + aes(x = Işsizlik_Oranı , y = Mutluluk_Skoru) + geom_point() + labs(x= "İşsizlik Oranı", y= "Mutluluk Skoru") + theme_bw() + geom_smooth(method = "lm", se = TRUE, color = "steelblue")
 ```
+Son sayısal değişken olan hukuk endeksi, bir devletin ne kadar hukuk devleti olduğunu ve bir ülkedeki işlerin ne kadar hukuka bağlı kalınarak gittiğini gösteren bir ölçüttür. Yapılan regresyon analizinin sonuçları (Tablo \ref{tab:mutlulukissizlik})'de gözükmektedir. Analizden elde edilen denklem şu şekildedir:
+$$
+Mutluluk Skoru = 2.81 + 4.94(Hukuk Endeksi)
+$$
+P değerlerinin 0 düzeyinde olması yapılan analizleri anlamlı kılmaktadır. Denklemden de gözüktüğü gibi bir ülkenin hukuka bağlılığı ve o ülkenin mutluluğu arasında pozitif yönlü bir ilişki bulunmaktadır. İlişkinin pozitif yönlü olduğu (Şekil \@ref(fig:plot9)) üzerinden teyit edilebilir.
+
+
+```{r results='asis', echo=FALSE}
+mutluluk_hukuk_tablo <- lm(Mutluluk_Skoru ~ Hukuk_Skoru, data = dat)
+tidy(mutluluk_hukuk_tablo) %>%
+  xtable(caption = "Mutluluk ve Hukuk Endeksi Regresyon Tahmini",
+         label = "tab:mutlulukhukuk",
+  align = c("l", "c", "c", "c", "c", "c"
+            )) %>%
+  print(booktabs = TRUE, comment = FALSE, caption.placement = "top")
+```
+
+
+```{r plot9, echo=FALSE, fig.align='center', fig.cap='Mutluluk Ve Hukuk Endeksi Arasındaki İlişkinin Grafiksel Gösterimi'}
+
+ggplot(dat) + aes(x = Hukuk_Skoru , y = Mutluluk_Skoru) + geom_point() + labs(x= "Hukuk Endeksi Skoru", y= "Mutluluk Skoru") + theme_bw() + geom_smooth(method = "lm", se = TRUE, color = "steelblue")
+```
+\newpage
+## Varyans Analizleri
 
 
 \newpage
