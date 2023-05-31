@@ -165,6 +165,9 @@ dat %>%
 Kullanılan veri setinde Mutluluk skoru (bağımlı, $Y$) sonuç değişkendir. Kalan veriler ise mutluluğu açıklamaya çalışmakta kullanılan öngörücü (bağımsız, $x$) değişkenleridir. Mutluluk skoru ile sayısal olan değişkenler arasındaki ilişkiyi açıklamak için basit doğrusal regresyon analizi kullanılmıştır. Kategorik değişkenler arasında oluşan mutluluk farklılığının anlamlılığını sorgulamak için ise ANOVA (varyans analizi) kullanılmıştır.
 
 ## Regresyon Analizleri
+Regresyon analizi, istatistiksel bir yöntemdir ve bir değişkenin diğer değişkenlerle ilişkisini analiz etmek için kullanılır. Temel olarak, bir bağımlı değişkenin (sonuç değişkeni) bir veya daha fazla bağımsız değişkenle ilişkisini belirlemeye çalışır.
+Çalışmada basit lineer model kullanılmıştır ve diğer açıklayıcı değişkenlerin sabitliği varsayılmıştır.
+
 İlk olarak çalışmadaki temel öngörücü değişken olan kişi başı gelir ile bir doğrusal regresyon analizi yapılmıştır. Sonuç (Tablo \ref{tab:mutlulukgelir}) üzerinden gözlemlenebilir. Bu veriler ile iki değişkenin arasındaki ilişkinin regresyon tahmini aşağıdaki denklemdeki gibidir:
 
 $$
@@ -316,6 +319,50 @@ ggplot(dat) + aes(x = Hukuk_Skoru , y = Mutluluk_Skoru) + geom_point() + labs(x=
 ```
 \newpage
 ## Varyans Analizleri
+Kategorik değişkenlerin analizi yapılabilmesi için varyans analizi (ANOVA) yöntemi kullanılmıştır. Bu yöntem ile farklı kategoriye sahip olan ülkelerin arasında oluşan farklılığın anlamlı mı yoksa anlamsız mı olduğu test edilmektedir. 
+
+Bir ülkenin özgür olup olmaması, o ülkenin kaderini tayin edebilmesinde büyük bir öneme sahiptir. Yapılan çalışmada özgürlük seviyeleri üç kategoriye bölünmüştür (Özgür, Kısmen Özgür ve Özgür Değil şeklinde). Ülkelerin dağılımları (Şekil \@ref(fig:plot10))'da gözükmektedir. Dağılımlar kısmen normal dağılımı anımsatmaktadır. Shapiro-Wilk testinden elde edilen sonuçlar ise (Tablo \ref{tab:shapirotest})'da gözükmektedir. P değerleri anlamlılık düzeylerinin üstünde yer aldığı için dağılımların normalliği varsayılmaktadır. Yapılan varyans analizinin sonuçları (Tablo \ref{tab:mutlulukrejim})'dadır. P değeri rejim değişkeninin mutluluk skoru üzerinde bir etkisi olduğunu göstermektedir. Kategorik olarak ayrılmış biçimde kutu grafiği (Şekil \@ref(fig:plot11))'de verilmiştir. Grafikte kısmen özgür olanların özgür olmayanlara göre daha az mutlu olduğu gözlemlenmektedir ve bu durumun farklı açıklamaları olabilir. (Şekil \@ref(fig:plot12)) üzerinden oluşan önemli farklılıkların Özgür-Özgür değil ve Özgür-Kısmen Özgür kategorileri arasında olduğu görülebilir.
+
+```{r plot10, echo=FALSE, fig.align='center', fig.cap='Rejimlerin Niteliğine Göre Mutluluk Dağılımları'}
+ggplot(dat) +
+  aes(x = Mutluluk_Skoru , fill = Rejim) +
+  geom_histogram(binwidth = .5, alpha = 0.5) + facet_wrap(~Rejim) + labs(x = "Mutluluk Skoru", y = "Ülke Sayısı") + theme_bw(base_size = 10)
+```
+```{r results='asis', echo=FALSE}
+dat %>% 
+  group_by(Rejim) %>% 
+  nest() %>% 
+  mutate(Shapiro_test = map(data, ~shapiro.test(.x$Mutluluk_Skoru))) %>% 
+  mutate(glance_shapiro = Shapiro_test %>% map(glance)) %>% 
+  unnest(glance_shapiro) %>% 
+  select(Rejim, statistic, p.value) %>%
+  xtable(caption = "Dağılımların Normallik Testi",
+         label = "tab:shapirotest",
+  align = c("l", "c", "c", "c"
+            )) %>%
+  print(booktabs = TRUE, comment = FALSE, caption.placement = "top")
+```
+```{r results='asis', echo=FALSE}
+mutluluk_rejim_tablo <- aov(Mutluluk_Skoru ~ Rejim, data = dat)
+tidy(mutluluk_rejim_tablo) %>%
+  xtable(caption = "Mutluluk ve Rejim Arasındaki Varyans Analizi Sonuçları",
+         label = "tab:mutlulukrejim",
+  align = c("l", "c", "c", "c", "c", "c", "c"
+            ), digits = c(2,2,2,2,2,2,5)) %>%
+  print(booktabs = TRUE, comment = FALSE, caption.placement = "top")
+
+```
+```{r plot11, echo=FALSE, fig.align='center', fig.cap='Mutluluk Skorunun Rejimlere Göre Kutu Grafiği'}
+ggplot(dat) + aes(x = Rejim , y = Mutluluk_Skoru) + geom_boxplot() + theme_bw() + labs(x = "Özgürlük Mertebesi", y="Mutluluk Skoru")
+```
+
+```{r plot12, echo=FALSE, fig.align='center', fig.cap='Kategorilerin birbirlerinden ayrışımı'}
+library(rstatix)
+TukeyHSD(mutluluk_rejim_tablo) %>% 
+  ggiraphExtra::ggHSD()+ theme_bw(base_size = 9)
+```
+
+
 
 
 \newpage
