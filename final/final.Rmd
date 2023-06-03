@@ -107,7 +107,11 @@ Baskın_Dini_İnanç <- Baskın_Dini_İnanç %>%
   select("ICOUNTRY", "MAJRELNAME") %>%
   mutate(ICOUNTRY = as.character(case_when(
     ICOUNTRY == "United States (General)" ~ "United States",
-    TRUE ~ ICOUNTRY)))
+    TRUE ~ ICOUNTRY))) %>%
+  mutate(MAJRELNAME = as.character(case_when(
+    MAJRELNAME == "Protestant (incl. Anglican, Pentecostal)" ~ "Protestant",
+    MAJRELNAME == "Not Religious (incl. Atheist)" ~ "Not Religious",
+    TRUE ~ MAJRELNAME)))
 names(Baskın_Dini_İnanç) <- (c("Ülke", "Baskın_Dini_Inanç"))
 
   
@@ -277,7 +281,7 @@ tidy(mutluluk_GSYH_tablo) %>%
 ggplot(dat) + aes(x = GSYH , y = Mutluluk_Skoru) + geom_point() + labs(x= "GSYH (milyar $ cinsinden)", y= "Mutluluk Skoru") + theme_bw() + geom_smooth(method = "lm", se = TRUE, color = "steelblue")
 ```
 \newpage
-İşsizlik, birçok disiplinin üzerine çalıştığı toplumsal sonuçları ağır olabilen bir olgudur. Mutluluk ile ilişkili olması olağan bir durumdur. Yapılan regresyon analizi sonucu (Tablo \ref{tab:mutlulukissizlik})'de verilmiştir. Tahminden elde edilen denklem aşağıdaki gibidir:
+İşsizlik, birçok disiplinin üzerine çalıştığı, toplumsal sonuçları ağır olabilen bir olgudur. Mutluluk ile ilişkili olması olağan bir durumdur. Yapılan regresyon analizi sonucu (Tablo \ref{tab:mutlulukissizlik})'de verilmiştir. Tahminden elde edilen denklem aşağıdaki gibidir:
 $$
 Mutluluk Skoru = 6.58 -0.08(IssizlikOranı)
 $$
@@ -295,7 +299,7 @@ tidy(mutluluk_issizlik_tablo) %>%
 
 ggplot(dat) + aes(x = Işsizlik_Oranı , y = Mutluluk_Skoru) + geom_point() + labs(x= "İşsizlik Oranı", y= "Mutluluk Skoru") + theme_bw() + geom_smooth(method = "lm", se = TRUE, color = "steelblue")
 ```
-Son sayısal değişken olan hukuk endeksi, bir devletin ne kadar hukuk devleti olduğunu ve bir ülkedeki işlerin ne kadar hukuka bağlı kalınarak gittiğini gösteren bir ölçüttür. Yapılan regresyon analizinin sonuçları (Tablo \ref{tab:mutlulukissizlik})'de gözükmektedir. Analizden elde edilen denklem şu şekildedir:
+Son sayısal değişken olan hukuk endeksi, bir devletin ne kadar hukuk devleti olduğunu ve bir ülkedeki işlerin ne kadar hukuka bağlı kalınarak gittiğini gösteren bir ölçüttür. Yapılan regresyon analizinin sonuçları (Tablo \ref{tab:mutlulukhukuk})'de gözükmektedir. Analizden elde edilen denklem şu şekildedir:
 $$
 Mutluluk Skoru = 2.81 + 4.94(Hukuk Endeksi)
 $$
@@ -361,7 +365,30 @@ library(rstatix)
 TukeyHSD(mutluluk_rejim_tablo) %>% 
   ggiraphExtra::ggHSD()+ theme_bw(base_size = 9)
 ```
+\newpage
+Son kategorik değişken olan dini inanç, farklılaşmış inançların ve dini motiflerin insanların mutluluğu üzerinde bir etkiye sahip olup olmadığını ölçmek üzere eklenmiştir. Fakat yeterli büyüklükte örneklem olmadığı için, dağılımların normalliği veya dağılımların benzerliği varsayılamamaktadır. Dağılımlar (Şekil \@ref(fig:plot13)) üzerinden görülebilir. Fakat (Şekil \@ref(fig:plot14))'de verilen grafiğe göre, yüksek refaha sahip ülkelerin inançlarının mutlulukta baskın geldiği, dolayısıyla dini inanç ile mutluluk arasında bir nedensellik olmadığı çıkarımı yapılabilir.
 
+```{r plot13, echo=FALSE, fig.align='center', fig.cap='Mutluluk Skorlarının Dini İnançlara Göre Dağılımı'}
+ggplot(dat) +
+  aes(x = Mutluluk_Skoru, fill = Baskın_Dini_Inanç) +
+  geom_histogram(binwidth = .5, alpha = 0.5) +
+  facet_wrap(~Baskın_Dini_Inanç) +
+  labs(x = "Mutluluk Skoru", y = "Ülke Sayısı") +
+  theme_bw(base_size = 7) +
+  guides(fill = guide_legend(title = "Baskın Dini İnanç"))
+```
+
+```{r plot14, echo=FALSE, fig.align='center', fig.cap='Ülkelerdeki Baskın Olan Dini İnanca Göre Sıralanmış Mutluluk Ortalamaları'}
+dat %>%
+  group_by(Baskın_Dini_Inanç) %>%
+  summarize(Ortalama_Mutluluk_Skoru = mean(Mutluluk_Skoru)) %>%
+  mutate(Baskın_Dini_Inanç = fct_reorder(Baskın_Dini_Inanç, Ortalama_Mutluluk_Skoru)) %>%
+  ggplot(aes(Ortalama_Mutluluk_Skoru, Baskın_Dini_Inanç)) +
+  geom_col(fill = "steelblue") +
+  labs(
+       x = "Ortalama Mutluluk Skoru" ,
+       y = "Baskın Olan Dini İnanç")+ theme_bw()
+```
 
 
 
