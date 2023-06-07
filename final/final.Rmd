@@ -366,7 +366,7 @@ TukeyHSD(mutluluk_rejim_tablo) %>%
   ggiraphExtra::ggHSD()+ theme_bw(base_size = 9)
 ```
 \newpage
-Son kategorik değişken olan dini inanç, farklılaşmış inançların ve dini motiflerin insanların mutluluğu üzerinde bir etkiye sahip olup olmadığını ölçmek üzere eklenmiştir. Fakat yeterli büyüklükte örneklem olmadığı için, dağılımların normalliği veya dağılımların benzerliği varsayılamamaktadır. Dağılımlar (Şekil \@ref(fig:plot13)) üzerinden görülebilir. Fakat (Şekil \@ref(fig:plot14))'de verilen grafiğe göre, yüksek refaha sahip ülkelerin inançlarının mutlulukta baskın geldiği, dolayısıyla dini inanç ile mutluluk arasında bir nedensellik olmadığı çıkarımı yapılabilir.
+Son kategorik değişken olan dini inanç, farklılaşmış inançların ve dini motiflerin insanların mutluluğu üzerinde bir etkiye sahip olup olmadığını ölçmek üzere eklenmiştir. Fakat yeterli büyüklükte örneklem olmadığı için, dağılımların normalliği veya dağılımların benzerliği varsayılamamaktadır. Dağılımlar (Şekil \@ref(fig:plot13)) üzerinden görülebilir. Fakat (Şekil \@ref(fig:plot14))'de verilen grafiğe göre, yüksek refaha sahip ülkelerin inançlarının mutlulukta baskın geldiği, dolayısıyla kesin olmamakla beraber dini inanç ile mutluluk arasında bir nedensellik olmadığı çıkarımı yapılabilir.
 
 ```{r plot13, echo=FALSE, fig.align='center', fig.cap='Mutluluk Skorlarının Dini İnançlara Göre Dağılımı'}
 ggplot(dat) +
@@ -392,12 +392,22 @@ dat %>%
 
 
 
+
 \newpage
 # Sonuç
+50 ülkenin gözlem olarak seçildiği veri seti ile istatistiksel analizler yapılmıştır. Çalışmada sayısal değişkenler arasında regresyon analizi ve kategorik değişkenler arasında varyans analizi yapılmıştır. Çalışma sonucunda çeşitli bulgular elde edilmiştir. Bir ülkedeki mutluluk seviyesinin kişi başı milli gelir, hukuk, insan sermayesi, ülkede hüküm sürmekte olan rejim, işsizlik oranı gibi değişkenler ile açıklandığı görülebilirken, nüfus, GSYH, gelir dağılımı gibi değişkenlerin tatmin edici bir açıklama getiremediği gözlemlenmiştir. 
 
-**Kaynakça bölümü Rmarkdown tarafından otomatik olarak oluşturulmaktadır. Taslak dosyada Kaynakça kısmında herhangi bir değişikliğe gerek yoktur.** 
+Çalışma daha yüksek gözlem hacmine ve veri kalitesine sahip, daha iyi dağılmış veri setleri ile teyit edilebilir ve geliştirilebilir. Zaman serisi analizleri gibi farklı analiz çeşitleri kullanılabilir, değişimlere olan duyarlılık ölçülebilir, farklı karşılaştırma grupları oluşturulup kategorize edilmiş çalışmalar yapılabilir, ulusal bazlı veriler yerine birey bazlı veriler (kesit veri) ile çalışmalar yapılabilir ve kullanılan basit lineer regresyon modeli değiştirilip tüm etkilerin aynı anda gözlemlendiği daha kapsamlı bir çalışma yapılabilir. Aynı zamanda farklı açıklayıcı değişkenlerin (kültürel faktörler, sosyal ilişkiler, çevresel koşullar gibi) modele katılmasıyla daha gerçekçi bir sonuç elde edilebilir. 
 
-**_Taslakta bu cümleden sonra yer alan hiçbir şey silinmemelidir._**
+Elde edilen sonuçlar ışığında normatif önermelerde bulunmak mümkündür. Bir hükümetin, ülke vatandaşlarının mutluluğunu maksimize edebilmesi için yargı bağımsızlığı, konjonktürel işsizlik, kişi başına düşen harcanabilir milli gelir, insan sermayesi endeksinin kriterleri (beklenen eğitim süreleri, eğitimin niteliği, sağlık hizmetlerine olan erişim, hayatta kalma beklentileri vb.), demokratik ortam oluşumu gibi kavramlara dikkatli yaklaşması ve bu kavramlar üzerinden aktif politika sürdürmesi gerekmektedir. Bu bağlamda çalışma, sorulan sorulara cevap verme yeterliliğine sahiptir.
+
+Çalışmanın ortaya koyduğu sonuçlardan hareketle insan davranışlarına yönelik çeşitli çıkarımlar yapmak da mümkündür. İnsanlar, gelir dağılımı, nüfusun niceliği, ulusal gelir gibi kolektif metriklerin değişiminden etkilenmemektedir. Bireyler kendi hayatlarına ve kendi erişim güçlerine önem atfetmektedir. Gelir dağılımının mutluluğu açıklayamaması, bu çalışma bağlamında literatürde mutlak gelir yaklaşımını savunan argümanları haklı çıkarmaktadır (farklı analiz türleri ve farklı veri setlerinde beklenenden farklı sonuçlar alınması mümkündür). 
+
+Dini inancın mutluluğu etkileyip etkilemediğini ölçmek için daha fazla gözleme sahip veri setleri ve daha farklı analiz yöntemleri ile farklı perspektiflerden bakılmalıdır. Yapılan çalışmada dini inanç ile mutluluk arasındaki ilişkinin analizi tam anlamıyla yapılamamış olup, çeşitli gözlemler edinilmiştir. 
+
+Sonuç olarak, bu çalışma amacına hizmet etmiş ve literatürde geniş bir yer kaplayan mutluluğu çözümleme sürecine katkıda bulunmuştur. Böylelikle, çalışmanın başında irdelenen sorular, istatistiksel metodlar sayesinde mevcut veri seti dikkate alınarak yanıtlanabilmiştir. 
+
+
 
 \newpage
 # Kaynakça {#references}
