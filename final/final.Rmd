@@ -25,7 +25,8 @@ urlcolor: blue
 fontsize: 12pt
 biblio-style: apalike
 abstract: |
-  Bu bölümde çalışmanızın özetini yazınız.
+ Bu çalışmada irdelenen temel konu, insanların gelir seviyelerinde oluşan farklılıkların mutluluk üzerinde bir etkisi olup olmadığıdır. Çalışmada gelir ile beraber hukuka bağlılık, ülkenin ne kadar özgür olduğu, işsizlik oranı, ülkenin gayrisafi yurtiçi hasılası, ülkede baskın olan dini inanç gibi gelirden farklı açıklayıcı değişkenler de bulunmaktadır. Çalışma, insanların mutluluğunun kriterlerini ve politika yapıcıların hangi konularda politika uygulayarak vatandaşların mutluluğunu temin edebileceğini irdelemektedir. Aynı zamanda, literatürde halihazırda var olan “İnsanlar mutlak geliri mi yoksa göreli geliri mi önemser?” tartışmasına bulguları ile katkı sağlamaktadır. Kullanılmış olan veri seti iyi bir temsil oluşturması amacıyla farklı gelir seviyelerinden seçilmiş 50 adet ülke içermektedir. Çalışma, bu ülkelerin 2018 yılından elde edilmiş ulusal verileri ile yürütülmüştür. Veri setinde mutluluk skoru, kişi başı harcanabilir milli gelir, gini endeksi, insan sermayesi endeksi, nüfus, gayrisafi yurtiçi hasıla, işsizlik oranı, hukuk endeksi skoru, özgürlük mertebesi ve baskın dini inanç olmak üzere toplam 10 adet değişken bulunmaktadır.  Özgürlük mertebesi ve baskın dini inanç değişkenleri kategorik olarak nitelendirilmiş olup, kalan değişkenler sayısal olarak nitelendirilmiştir.  Çalışmada sayısal olarak nitelendirilen değişkenler arasında basit doğrusal regresyon analizi uygulanmış olup, kategorik olarak nitelendirilen değişkenler arasında varyans analizi uygulanmıştır. Elde edilen sonuçlara göre, insanlar kişi başı harcanabilir milli gelir, hukuka bağlılık, özgürlük mertebesi, beşeri sermaye, işsizlik oranı gibi değişkenlerden (mutluluk bazında) etkilenirken, gayrisafi yurtiçi hasıla, nüfus, gelir dağılımı gibi değişkenlerden etkilenmemektedir. Ülkede baskın olan dini inanç hakkında daha kapsamlı çalışmalar yapılması gerektiği vurgulanmak ile beraber mutluluk ile arasında herhangi bir ilişki gözlemlenmemiştir.  Elde edilen sonuçların incelenmesi ile beraber insanların kişi başına düşen gelir seviyesine önem atfettiği fakat kolektif bir ölçüm biçimi olan gayrisafi yurtiçi hasılaya önem atfetmediği, gelir dağılımının bozuk olmasından etkilenmedikleri ve temel problemin ülkede mevcut olan refah olduğu, politika yapıcıların hukuka bağlılık, beşeri sermaye (eğitimin niteliği, eğitim sürecinin uzunluğu, yaşam beklentisi, aktif işgücü katılımı vb.), demokratik ortam oluşumu gibi konular üzerinden aktif politika yapması gerektiği sonuçlarına varılmıştır. Çalışmanın nasıl geliştirilebileceği konusunda tartışılmış, farklı veri türleri, farklı analiz metodları, farklı değişkenlerin modele dahil edilmesi ve veri hacminin genişletilmesi gibi öneriler sunulmuştur. 
+
 ---
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(cache = FALSE, echo = TRUE, message = FALSE, warning = FALSE)
@@ -164,7 +165,7 @@ dat %>%
   select(Hukuk_Skoru, Mutluluk_Skoru, Gini_Endeksi, Insan_Sermayesi_Endeksi) %>%
   ggpairs(columnLabels = c("Hukuk", "Mutluluk", "Gini katsayısı", "İnsan Sermayesi")) + theme_bw(base_size = 10, base_family = "ArialMT")
 ```
-
+\newpage
 # Yöntem ve Veri Analizi
 Kullanılan veri setinde Mutluluk skoru (bağımlı, $Y$) sonuç değişkendir. Kalan veriler ise mutluluğu açıklamaya çalışmakta kullanılan öngörücü (bağımsız, $x$) değişkenleridir. Mutluluk skoru ile sayısal olan değişkenler arasındaki ilişkiyi açıklamak için basit doğrusal regresyon analizi kullanılmıştır. Kategorik değişkenler arasında oluşan mutluluk farklılığının anlamlılığını sorgulamak için ise ANOVA (varyans analizi) kullanılmıştır.
 
@@ -172,8 +173,7 @@ Kullanılan veri setinde Mutluluk skoru (bağımlı, $Y$) sonuç değişkendir. 
 Regresyon analizi, istatistiksel bir yöntemdir ve bir değişkenin diğer değişkenlerle ilişkisini analiz etmek için kullanılır. Temel olarak, bir bağımlı değişkenin (sonuç değişkeni) bir veya daha fazla bağımsız değişkenle ilişkisini belirlemeye çalışır.
 Çalışmada basit lineer model kullanılmıştır ve diğer açıklayıcı değişkenlerin sabitliği varsayılmıştır.
 
-İlk olarak çalışmadaki temel öngörücü değişken olan kişi başı gelir ile bir doğrusal regresyon analizi yapılmıştır. Sonuç (Tablo \ref{tab:mutlulukgelir}) üzerinden gözlemlenebilir. Bu veriler ile iki değişkenin arasındaki ilişkinin regresyon tahmini aşağıdaki denklemdeki gibidir:
-
+İlk olarak çalışmadaki temel öngörücü değişken olan kişi başı gelir ile bir doğrusal regresyon analizi yapılmıştır. Sonuç (Tablo \ref{tab:mutlulukgelir}) üzerinden gözlemlenebilir. Bu veriler ile iki değişken arasındaki ilişkinin regresyon tahmini aşağıdaki denklemdeki gibidir:
 $$
 Mutluluk Skoru = 4.81 + 0.00005071 (Kisi Bası Gelir)
 $$
@@ -194,13 +194,12 @@ tidy(mutluluk_gelir_tablo) %>%
 ggplot(dat) + aes(x = Kişi_Başı_Milli_Gelir , y = Mutluluk_Skoru) + geom_point() + labs(x= "Gelir Düzeyi ($ cinsinden)", y= "Mutluluk Skoru") + theme_bw() + geom_smooth(method = "lm", se = TRUE, color = "steelblue")
 
 ```
-
+\newpage
 Bir diğer değişken olan gini endeksi, ülkeler arasında gelir dağılımının nasıl bir durumda olduğunu gösterir. Bu veriler ile gelir dağılımı ve mutluluk arasında bir ilişkinin olup olmadığı sınanabilir. Yapılan doğrusal regresyon analizinin sonuçları (Tablo \ref{tab:mutlulukgelirdagilimi})'de gösterilmiştir. Bu veriler ile iki değişken arasındaki ilişkinin regresyon tahmini aşağıdaki denklemdeki gibidir:
-
 $$
 MutlulukSkoru = 6.72 - 0.02(Gini Katsayısı)
 $$
-P değerlerinden analizin anlamlı olmadığı görülebilir ve iki değişken arasında bir ilişki olmadığı denklemden gözlemlenebilir, aynı zamanda grafik üzerinden de teyit edilebilir. (Şekil \@ref(fig:plot4)) iki değişken arasındaki ilişkinin grafiksel gösterimidir.
+P değerlerinden analizin anlamlı olmadığı görülebilir ve iki değişken arasında bir ilişki olmadığı denklemden gözlemlenebilir, aynı zamanda grafik üzerinden de teyit edilebilir. (Şekil \@ref(fig:plot4)), iki değişken arasındaki ilişkinin grafiksel gösterimidir.
 
 ```{r results='asis', echo=FALSE}
 mutluluk_gelir_dagilimi_tablo <- lm(Mutluluk_Skoru ~ Gini_Endeksi, data = dat)
@@ -216,8 +215,8 @@ tidy(mutluluk_gelir_dagilimi_tablo) %>%
 ggplot(dat) + aes(x = Gini_Endeksi , y = Mutluluk_Skoru) + geom_point() + labs(x= "Gini Endeksi Skoru", y= "Mutluluk Skoru") + theme_bw() + geom_smooth(method = "lm", se = TRUE, color = "steelblue")
 
 ```
+\newpage
 Diğer bir değişken olan insan sermayesi endeksi ülkelerdeki eğitim seviyeleri, sağlık hizmetlerine olan erişim, iş gücü piyasası etkinliği gibi çeşitli faktörleri ölçüp endekslenmiş biçimde sunan bir değişkendir. Regresyon analizinden elde sonuçlar (Tablo \ref{tab:mutlulukhci})'de gösterilmektedir. Elde edilen tahmin denklemi şu şekildedir:
-
 $$
 Mutluluk Skoru = 1.87 + 6.07(Insan Sermayesi Endeksi)
 $$
@@ -239,12 +238,11 @@ ggplot(dat) + aes(x = Insan_Sermayesi_Endeksi , y = Mutluluk_Skoru) + geom_point
 ```
 \newpage
 
-Nüfus, ülkelerin aldığı kararları ve sonuçları etkileyen önemli bir değişkendir. Nüfusun mutluluk üzerindeki etkisi regresyon analizi ile incelenebilir. Sonuçlar (Tablo \ref{tab:mutluluknufus})'de gözükmektedir. P değeri anlamlı olmadığını göstermektedir. Elde edilen tahmin denklemi şu şekildedir:
-
+Nüfus, ülkelerin aldığı kararları ve sonuçları etkileyen önemli bir değişkendir. Nüfusun mutluluk üzerindeki etkisi regresyon analizi ile incelenebilir. Sonuçlar (Tablo \ref{tab:mutluluknufus})'de gözükmektedir. P değeri, tahminin anlamlı olmadığını göstermektedir. Elde edilen tahmin denklemi şu şekildedir:
 $$
 Mutluluk Skoru = 5.66 - 0.00058567(Nufus)
 $$
-Denklemde gözüken anlamsızlık grafiksel gösterimden de gözlemlenebilir. Grafik (Şekil \@ref(fig:plot6))'da gösterilmiştir.
+Denklemde gözüken anlamsızlık grafiksel gösterimden de gözlemlenebilir. Grafik, (Şekil \@ref(fig:plot6))'da gösterilmiştir.
 
 ```{r results='asis', echo=FALSE}
 mutluluk_nüfus_tablo <- lm(Mutluluk_Skoru ~ Nufus, data = dat)
@@ -261,11 +259,11 @@ ggplot(dat) + aes(x = Nufus , y = Mutluluk_Skoru) + geom_point() + labs(x= "Nufu
 ```
 \newpage
 
-Gayrisafi yurtiçi hasıla ülkeler için önem arz eden bir değişkendir. Ülkelerin refah düzeylerinin bir ölçümü olarak görülen bu değişkenin mutluluk üzerindeki etkisi regresyon analizi ile gözlemlenmiştir. Analizin sonuçları (Tablo \ref{tab:mutlulukGSYH})'da gözükmektedir. Bu regresyon tahmininden elde edilen denklem şu şekildedir:
+Gayrisafi yurtiçi hasıla ülkeler için önem arz eden bir değişkendir. Ülkelerin refah düzeylerinin bir ölçümü olarak görülen bu değişkenin mutluluk üzerindeki etkisi regresyon analizi ile gözlemlenmiştir. Analizin sonuçları, (Tablo \ref{tab:mutlulukGSYH})'da gözükmektedir. Bu regresyon tahmininden elde edilen denklem şu şekildedir:
 $$
 Mutluluk Skoru = 5.51 + 0.00006595(GSYH)
 $$
-P değerlerinden gözüktüğü gibi analiz tam bir anlamlılık içermemektedir ve iki değişken arasında bir ilişki olmadığı söylenebilir. Bu sonuçtan bireylerin kişi başı metrikleri daha çok önemsediği çıkarımına varılabilir. İki değişken arasındaki ilişkinin gösterimi (Şekil \@ref(fig:plot7))'dedir.
+P değerlerinden gözüktüğü gibi analiz tam bir anlamlılık içermemektedir ve iki değişken arasında bir ilişki olmadığı söylenebilir. Bu sonuçtan bireylerin kişi başı metrikleri daha çok önemsediği çıkarımına varılabilir. İki değişken arasındaki ilişkinin gösterimi, (Şekil \@ref(fig:plot7))'dedir.
 
 ```{r results='asis', echo=FALSE}
 mutluluk_GSYH_tablo <- lm(Mutluluk_Skoru ~ GSYH, data = dat)
@@ -281,11 +279,11 @@ tidy(mutluluk_GSYH_tablo) %>%
 ggplot(dat) + aes(x = GSYH , y = Mutluluk_Skoru) + geom_point() + labs(x= "GSYH (milyar $ cinsinden)", y= "Mutluluk Skoru") + theme_bw() + geom_smooth(method = "lm", se = TRUE, color = "steelblue")
 ```
 \newpage
-İşsizlik, birçok disiplinin üzerine çalıştığı, toplumsal sonuçları ağır olabilen bir olgudur. Mutluluk ile ilişkili olması olağan bir durumdur. Yapılan regresyon analizi sonucu (Tablo \ref{tab:mutlulukissizlik})'de verilmiştir. Tahminden elde edilen denklem aşağıdaki gibidir:
+İşsizlik, birçok disiplinin üzerine çalıştığı, toplumsal sonuçları ağır olabilen bir olgudur. Mutluluk ile ilişkili olması olağan bir durumdur. Yapılan regresyon analizi sonucu, (Tablo \ref{tab:mutlulukissizlik})'de verilmiştir. Tahminden elde edilen denklem aşağıdaki gibidir:
 $$
 Mutluluk Skoru = 6.58 -0.08(IssizlikOranı)
 $$
-analiz sonucu ortaya çıkan p değeri anlamlılığını çok yüksek kılmasa da işsizlik oranı ve mutluluk arasında negatif yönlü bir ilişki olduğu ortaya çıkmıştır. İki değişken arasındaki ilişki görsel olarak (Şekil \@ref(fig:plot8)) üzerinden gözlemlenebilir.
+Analiz sonucu ortaya çıkan p değeri, anlamlılığını çok yüksek kılmasa da işsizlik oranı ve mutluluk arasında negatif yönlü bir ilişki olduğu ortaya çıkmıştır. İki değişken arasındaki ilişki, görsel olarak (Şekil \@ref(fig:plot8)) üzerinden gözlemlenebilir.
 ```{r results='asis', echo=FALSE}
 mutluluk_issizlik_tablo <- lm(Mutluluk_Skoru ~ Işsizlik_Oranı, data = dat)
 tidy(mutluluk_issizlik_tablo) %>%
@@ -299,11 +297,11 @@ tidy(mutluluk_issizlik_tablo) %>%
 
 ggplot(dat) + aes(x = Işsizlik_Oranı , y = Mutluluk_Skoru) + geom_point() + labs(x= "İşsizlik Oranı", y= "Mutluluk Skoru") + theme_bw() + geom_smooth(method = "lm", se = TRUE, color = "steelblue")
 ```
-Son sayısal değişken olan hukuk endeksi, bir devletin ne kadar hukuk devleti olduğunu ve bir ülkedeki işlerin ne kadar hukuka bağlı kalınarak gittiğini gösteren bir ölçüttür. Yapılan regresyon analizinin sonuçları (Tablo \ref{tab:mutlulukhukuk})'de gözükmektedir. Analizden elde edilen denklem şu şekildedir:
+Son sayısal değişken olan hukuk endeksi, bir devletin ne kadar hukuk devleti olduğunu ve bir ülkedeki işlerin ne kadar hukuka bağlı kalınarak gittiğini gösteren bir ölçüttür. Yapılan regresyon analizinin sonuçları, (Tablo \ref{tab:mutlulukhukuk})'de gözükmektedir. Analizden elde edilen denklem şu şekildedir:
 $$
 Mutluluk Skoru = 2.81 + 4.94(Hukuk Endeksi)
 $$
-P değerlerinin 0 düzeyinde olması yapılan analizleri anlamlı kılmaktadır. Denklemden de gözüktüğü gibi bir ülkenin hukuka bağlılığı ve o ülkenin mutluluğu arasında pozitif yönlü bir ilişki bulunmaktadır. İlişkinin pozitif yönlü olduğu (Şekil \@ref(fig:plot9)) üzerinden teyit edilebilir.
+P değerlerinin 0 düzeyinde olması, yapılan analizleri anlamlı kılmaktadır. Denklemden de gözüktüğü gibi bir ülkenin hukuka bağlılığı ve o ülkenin mutluluğu arasında pozitif yönlü bir ilişki bulunmaktadır. İlişkinin pozitif yönlü olduğu (Şekil \@ref(fig:plot9)) üzerinden teyit edilebilir.
 
 
 ```{r results='asis', echo=FALSE}
@@ -323,9 +321,9 @@ ggplot(dat) + aes(x = Hukuk_Skoru , y = Mutluluk_Skoru) + geom_point() + labs(x=
 ```
 \newpage
 ## Varyans Analizleri
-Kategorik değişkenlerin analizi yapılabilmesi için varyans analizi (ANOVA) yöntemi kullanılmıştır. Bu yöntem ile farklı kategoriye sahip olan ülkelerin arasında oluşan farklılığın anlamlı mı yoksa anlamsız mı olduğu test edilmektedir. 
+Kategorik değişkenlerin analizinin yapılabilmesi için varyans analizi (ANOVA) yöntemi kullanılmıştır. Bu yöntem ile farklı kategoriye sahip olan ülkelerin arasında oluşan farklılığın anlamlı mı yoksa anlamsız mı olduğu test edilmektedir. 
 
-Bir ülkenin özgür olup olmaması, o ülkenin kaderini tayin edebilmesinde büyük bir öneme sahiptir. Yapılan çalışmada özgürlük seviyeleri üç kategoriye bölünmüştür (Özgür, Kısmen Özgür ve Özgür Değil şeklinde). Ülkelerin dağılımları (Şekil \@ref(fig:plot10))'da gözükmektedir. Dağılımlar kısmen normal dağılımı anımsatmaktadır. Shapiro-Wilk testinden elde edilen sonuçlar ise (Tablo \ref{tab:shapirotest})'da gözükmektedir. P değerleri anlamlılık düzeylerinin üstünde yer aldığı için dağılımların normalliği varsayılmaktadır. Yapılan varyans analizinin sonuçları (Tablo \ref{tab:mutlulukrejim})'dadır. P değeri rejim değişkeninin mutluluk skoru üzerinde bir etkisi olduğunu göstermektedir. Kategorik olarak ayrılmış biçimde kutu grafiği (Şekil \@ref(fig:plot11))'de verilmiştir. Grafikte kısmen özgür olanların özgür olmayanlara göre daha az mutlu olduğu gözlemlenmektedir ve bu durumun farklı açıklamaları olabilir. (Şekil \@ref(fig:plot12)) üzerinden oluşan önemli farklılıkların Özgür-Özgür değil ve Özgür-Kısmen Özgür kategorileri arasında olduğu görülebilir.
+Bir ülkenin özgür olup olmaması, o ülkenin kaderini tayin edebilmesinde büyük bir öneme sahiptir. Yapılan çalışmada özgürlük seviyeleri üç kategoriye bölünmüştür (Özgür, Kısmen Özgür ve Özgür Değil şeklinde). Ülkelerin dağılımları, (Şekil \@ref(fig:plot10))'da gözükmektedir. Dağılımlar kısmen normal dağılımı anımsatmaktadır. Shapiro-Wilk testinden elde edilen sonuçlar ise (Tablo \ref{tab:shapirotest})'da gözükmektedir. P değerleri anlamlılık düzeylerinin üstünde yer aldığı için dağılımların normalliği varsayılmaktadır. Yapılan varyans analizinin sonuçları, (Tablo \ref{tab:mutlulukrejim})'dadır. P değeri rejim değişkeninin mutluluk skoru üzerinde bir etkisi olduğunu göstermektedir. Kategorik olarak ayrılmış biçimde kutu grafiği, (Şekil \@ref(fig:plot11))'de verilmiştir. Grafikte kısmen özgür olanların özgür olmayanlara göre daha az mutlu olduğu gözlemlenmektedir ve bu durumun farklı açıklamaları olabilir. (Şekil \@ref(fig:plot12)) üzerinden oluşan önemli farklılıkların Özgür-Özgür değil ve Özgür-Kısmen Özgür kategorileri arasında olduğu görülebilir.
 
 ```{r plot10, echo=FALSE, fig.align='center', fig.cap='Rejimlerin Niteliğine Göre Mutluluk Dağılımları'}
 ggplot(dat) +
@@ -366,7 +364,7 @@ TukeyHSD(mutluluk_rejim_tablo) %>%
   ggiraphExtra::ggHSD()+ theme_bw(base_size = 9)
 ```
 \newpage
-Son kategorik değişken olan dini inanç, farklılaşmış inançların ve dini motiflerin insanların mutluluğu üzerinde bir etkiye sahip olup olmadığını ölçmek üzere eklenmiştir. Fakat yeterli büyüklükte örneklem olmadığı için, dağılımların normalliği veya dağılımların benzerliği varsayılamamaktadır. Dağılımlar (Şekil \@ref(fig:plot13)) üzerinden görülebilir. Fakat (Şekil \@ref(fig:plot14))'de verilen grafiğe göre, yüksek refaha sahip ülkelerin inançlarının mutlulukta baskın geldiği, dolayısıyla kesin olmamakla beraber dini inanç ile mutluluk arasında bir nedensellik olmadığı çıkarımı yapılabilir.
+Son kategorik değişken olan dini inanç, farklılaşmış inançların ve dini motiflerin insanların mutluluğu üzerinde bir etkiye sahip olup olmadığını ölçmek üzere eklenmiştir. Fakat yeterli büyüklükte örneklem olmadığı için dağılımların normalliği veya dağılımların benzerliği varsayılamamaktadır. Dağılımlar (Şekil \@ref(fig:plot13)) üzerinden görülebilir. Fakat (Şekil \@ref(fig:plot14))'de verilen grafiğe göre, yüksek refaha sahip ülkelerin inançlarının mutlulukta baskın geldiği, dolayısıyla kesin olmamakla beraber dini inanç ile mutluluk arasında bir nedensellik olmadığı çıkarımı yapılabilir.
 
 ```{r plot13, echo=FALSE, fig.align='center', fig.cap='Mutluluk Skorlarının Dini İnançlara Göre Dağılımı'}
 ggplot(dat) +
@@ -397,7 +395,7 @@ dat %>%
 # Sonuç
 50 ülkenin gözlem olarak seçildiği veri seti ile istatistiksel analizler yapılmıştır. Çalışmada sayısal değişkenler arasında regresyon analizi ve kategorik değişkenler arasında varyans analizi yapılmıştır. Çalışma sonucunda çeşitli bulgular elde edilmiştir. Bir ülkedeki mutluluk seviyesinin kişi başı milli gelir, hukuk, insan sermayesi, ülkede hüküm sürmekte olan rejim, işsizlik oranı gibi değişkenler ile açıklandığı görülebilirken, nüfus, GSYH, gelir dağılımı gibi değişkenlerin tatmin edici bir açıklama getiremediği gözlemlenmiştir. 
 
-Çalışma daha yüksek gözlem hacmine ve veri kalitesine sahip, daha iyi dağılmış veri setleri ile teyit edilebilir ve geliştirilebilir. Zaman serisi analizleri gibi farklı analiz çeşitleri kullanılabilir, değişimlere olan duyarlılık ölçülebilir, farklı karşılaştırma grupları oluşturulup kategorize edilmiş çalışmalar yapılabilir, ulusal bazlı veriler yerine birey bazlı veriler (kesit veri) ile çalışmalar yapılabilir ve kullanılan basit lineer regresyon modeli değiştirilip tüm etkilerin aynı anda gözlemlendiği daha kapsamlı bir çalışma yapılabilir. Aynı zamanda farklı açıklayıcı değişkenlerin (kültürel faktörler, sosyal ilişkiler, çevresel koşullar gibi) modele katılmasıyla daha gerçekçi bir sonuç elde edilebilir. 
+Çalışma daha yüksek gözlem hacmine ve veri kalitesine sahip, daha iyi dağılmış veri setleri ile teyit edilebilir ve geliştirilebilir. Zaman serisi analizleri gibi farklı analiz çeşitleri kullanılabilir, değişimlere olan duyarlılık ölçülebilir, farklı karşılaştırma grupları oluşturulup kategorize edilmiş çalışmalar yapılabilir, ulus bazlı veriler yerine birey bazlı veriler (kesit veri) ile çalışmalar yapılabilir ve kullanılan basit lineer regresyon modeli değiştirilip tüm etkilerin aynı anda gözlemlendiği daha kapsamlı bir çalışma yapılabilir. Aynı zamanda farklı açıklayıcı değişkenlerin (kültürel faktörler, sosyal ilişkiler, çevresel koşullar gibi) modele katılmasıyla daha gerçekçi bir sonuç elde edilebilir. 
 
 Elde edilen sonuçlar ışığında normatif önermelerde bulunmak mümkündür. Bir hükümetin, ülke vatandaşlarının mutluluğunu maksimize edebilmesi için yargı bağımsızlığı, konjonktürel işsizlik, kişi başına düşen harcanabilir milli gelir, insan sermayesi endeksinin kriterleri (beklenen eğitim süreleri, eğitimin niteliği, sağlık hizmetlerine olan erişim, hayatta kalma beklentileri vb.), demokratik ortam oluşumu gibi kavramlara dikkatli yaklaşması ve bu kavramlar üzerinden aktif politika sürdürmesi gerekmektedir. Bu bağlamda çalışma, sorulan sorulara cevap verme yeterliliğine sahiptir.
 
